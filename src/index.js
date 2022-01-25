@@ -4,6 +4,17 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 
+// var express = require('express');
+// var app = express();
+
+// app.get('/', function(req, res){
+//   res.sendFile(__dirname + "/public/index.js")
+// })
+
+// app.listen(300, function(){
+//   console.log('listening on http://localhost:3000')
+// })
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
