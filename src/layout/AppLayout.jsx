@@ -1,5 +1,6 @@
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import {path} from '../constants/constant';
 import Header from '../components/header/Header';
 import Home from '../pages/Home';
 import Calendar from '../pages/Calendar';
@@ -14,13 +15,13 @@ const Applayout = () => {
   return <div>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/calendar" element={<Calendar />} />
-        <Route path="/commerce" element={<Ecommerce />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route path={path.HOME} element={<Home />} />
+        <Route path={path.CALENDAR} element={<Calendar />} />
+        <Route path={path.COMMERCE} element={<Ecommerce />} />
+        <Route path={path.ABOUT} element={<About />} />
+        <Route path={path.CONTACT} element={<Contact />} />
+        <Route path={path.SIGNUP} element={<Signup />} />
+        <Route path={path.LOGIN} element={<Signin />} />
       </Routes>
     <Footer />
   </div>;

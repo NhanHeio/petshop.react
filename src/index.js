@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
+import './assets/fontawesome-free-5.15.1-web/css/all.css'
 import App from './App';
 
 // var express = require('express');

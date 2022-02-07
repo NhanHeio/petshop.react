@@ -1,8 +1,9 @@
 import React from 'react';
+import Login from '../components/auth/Login';
 
 const Signin = () => {
   return <div>
-      Sign In
+      <Login />
   </div>;
 };
 
