@@ -2,16 +2,31 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { path } from '../../constants/constant';
+import { handleLogin } from '../../services/userService';
 
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPass, setShowPass] = useState('false')
-    const handleSubmit = () => {
-        console.log(
-            email,
-            password
-        )
+    const [errorMessage, setErrorMessage] = useState('')
+    const handleSubmit = async () => {
+        setErrorMessage('')
+        try{
+            let data = await handleLogin(email, password)
+            if(data && data.errCode !== 0){
+                setErrorMessage(data.message)
+            }
+            if(data && data.errCode === 0){
+                console.log(data.message)
+            }
+        }catch(e){
+            console.log(e)
+            if(e.response){
+                if(e.response.data){
+                    setErrorMessage(e.response.data.message)
+                }
+            }
+        }
     }
     const handleShowPassword = () =>{
         setShowPass(!showPass)
@@ -39,6 +54,9 @@ const Login = () => {
                         className={showPass ? 'fas fa-eye ml-3 mb-2 cursor-pointer' : 'fas fa-eye-slash ml-3 mb-2 cursor-pointer'}
                         onClick={handleShowPassword}
                     ></i>
+                </div>
+                <div className="mb-4">
+                    <span className="text-xl text-red-600">{errorMessage}</span>
                 </div>
                 <button onClick={handleSubmit} className=" text-sm text-center bg-sky-700 text-white py-1 rounded font-medium">
                     Log In
