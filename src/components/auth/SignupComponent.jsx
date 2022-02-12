@@ -2,19 +2,34 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { path } from '../../constants/constant';
+import { handleSignup } from '../../services/userService';
 
 const SignupComponent = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
     const [password, setPassword] = useState('')
     const [password2, setPassword2] = useState('')
     const [showPass, setShowPass] = useState('false')
-    const handleSubmit = () => {
-        console.log(
-            name,
-            email,
-            password
-        )
+    const [errorMessage, setErrorMessage] = useState('')
+    const handleSubmit = async () => {
+        setErrorMessage('')
+        try {
+            let data = await handleSignup(name, email, phoneNumber, password, password2)
+            if (data && data.errCode !== 0) {
+                setErrorMessage(data.message)
+            }
+            if (data && data.errCode === 0) {
+                console.log(data.message)
+            }
+        } catch (e) {
+            console.log(e)
+            if (e.response) {
+                if (e.response.data) {
+                    setErrorMessage(e.response.data.message)
+                }
+            }
+        }
     }
     const handleShowPassword = () => {
         setShowPass(!showPass)
@@ -39,6 +54,14 @@ const SignupComponent = () => {
                         placeholder="Email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
+                    />
+                    <input
+                        type="text"
+                        className="block border border-grey-light w-full p-3 rounded mb-4"
+                        name="phonenumber"
+                        placeholder="Phone Number"
+                        value={phoneNumber}
+                        onChange={e => setPhoneNumber(e.target.value)}
                     />
                     <div className="flex justify-between items-center">
                         <input
@@ -67,6 +90,9 @@ const SignupComponent = () => {
                             className={showPass ? 'fas fa-eye ml-3 mb-2 cursor-pointer' : 'fas fa-eye-slash ml-3 mb-2 cursor-pointer'}
                             onClick={handleShowPassword}
                         ></i>
+                    </div>
+                    <div className="mb-4">
+                        <span className="text-xl text-red-600">{errorMessage}</span>
                     </div>
                     <button
                         className="w-full text-center py-3 rounded bg-green text-sky-600 hover:bg-green-dark focus:outline-none my-1"

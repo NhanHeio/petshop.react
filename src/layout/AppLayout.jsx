@@ -11,9 +11,10 @@ import Signup from '../pages/Signup';
 import Signin from '../pages/Signin';
 import Footer from '../components/footer/Footer';
 
+
 const Applayout = () => {
   return <div>
-      <Header />
+      <Header className="sticky top-0 z-{100}" />
       <Routes>
         <Route path={path.HOME} element={<Home />} />
         <Route path={path.CALENDAR} element={<Calendar />} />
@@ -23,7 +24,7 @@ const Applayout = () => {
         <Route path={path.SIGNUP} element={<Signup />} />
         <Route path={path.LOGIN} element={<Signin />} />
       </Routes>
-    <Footer />
+    <Footer className="footer" />
   </div>;
 };
 
