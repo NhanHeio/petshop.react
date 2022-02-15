@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import './assets/fontawesome-free-5.15.1-web/css/all.css'
 import App from './App';
+import {StoreProvider} from './store';
 
 // var express = require('express');
 // var app = express();
@@ -19,7 +20,9 @@ import App from './App';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <StoreProvider>
+        <App />
+      </StoreProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

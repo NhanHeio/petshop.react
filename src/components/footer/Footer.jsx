@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { path } from '../../constants/constant';
 
 const Footer = () => {
     return <div>
@@ -20,9 +21,9 @@ const Footer = () => {
                         <div>
                             <h5 className="font-medium mb-2 uppercase">List pages</h5>
                             <p className="mb-4">
-                                <Link to='/about'>About</Link>
+                                <Link to={path.ABOUT}>About</Link>
                                 <br></br>
-                                <Link to='/contact'>Contact</Link>
+                                <Link to={path.CONTACT}>Contact</Link>
                             </p>
                             <div className="text-center text-gray-700 p-4">
                                 © 2021 Copyright:

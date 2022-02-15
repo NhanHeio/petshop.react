@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+
 import { Link } from 'react-router-dom';
 import './header.scss';
+import { useStore, actions } from '../../store';
 const headerNavItems = [
     {
         id: 0,
@@ -36,11 +37,13 @@ const headerNavItems = [
 const classActive = "p-2 lg:px-4 md:mx-2 text-white rounded bg-indigo-600"
 const classInactive = "p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
 const Header = () => {
-    const [activeIndex, setActiveIndex] = useState(0)
     const handleClick = (index) => {
-        setActiveIndex(index)
+        dispatch(actions.setIndex(index))
+        
     }
-    
+
+    const [activeIndex, dispatch] = useStore()
+
     return <div>
         <div className="header-sticky">
             <nav className="bg-white py-2 md:py-4">
@@ -56,7 +59,7 @@ const Header = () => {
                         {
                             headerNavItems.map((item) => (
 
-                                <Link to={item.to} key={item.id} onClick={() => handleClick(item.id)} className={item.id === activeIndex ? classActive : classInactive}>{item.display} </Link>
+                                <Link to={item.to} key={item.id} onClick={() => handleClick(item.id)} className={item.id == Object.values(activeIndex) ? classActive : classInactive}>{item.display} </Link>
 
                             ))
                         }

@@ -2,7 +2,9 @@ import React from 'react';
 
 const HomePicture = () => {
     const bgImg = {
-        backgroundImage: `url("https://vuipet.com/wp-content/uploads/2021/06/meo-long-ngan.jpg")`
+        backgroundImage: `url("https://www.americanhumane.org/app/uploads/2016/08/animals-cats-cute-45170-min.jpg")`,
+        borderRadius: 10,
+        boxShadow: true
     }
     const fontColor = {
         color: 'rgba(249,250,251,0.7)',
