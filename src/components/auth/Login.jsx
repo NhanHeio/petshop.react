@@ -1,26 +1,33 @@
 import React from 'react';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { connect } from "react-redux";
+import { Link, useNavigate} from 'react-router-dom';
 import { path } from '../../constants/constant';
 import { handleLogin } from '../../services/userService';
+import { actions } from '../../store/actions';
 
-const Login = () => {
+
+const Login = props => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPass, setShowPass] = useState('false')
     const [errorMessage, setErrorMessage] = useState('')
+    
     const handleSubmit = async () => {
         setErrorMessage('')
         try{
             let data = await handleLogin(email, password)
             if(data && data.errCode !== 0){
                 setErrorMessage(data.message)
+                props.userLoginFail()
             }
             if(data && data.errCode === 0){
-                console.log(data.message)
+                props.userLoginSuccess(data.user);
+                
             }
         }catch(e){
             console.log(e)
+            props.userLoginFail()
             if(e.response){
                 if(e.response.data){
                     setErrorMessage(e.response.data.message)
@@ -28,6 +35,12 @@ const Login = () => {
             }
         }
     }
+    let navigate = useNavigate()
+    useEffect(() => {
+        if(props.isLoggedIn){
+            return navigate("/")
+        }
+    },[props.isLoggedIn])
     const handleShowPassword = () =>{
         setShowPass(!showPass)
     }
@@ -82,4 +95,23 @@ const Login = () => {
     </div>
 };
 
-export default Login;
+const mapStateToProps = state => {
+    return {
+        isLoggedIn: state.user.isLoggedIn,
+        userInfo: state.user.userInfo
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo)),
+        userLoginFail: () => dispatch(actions.userLoginFail()),
+
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Login);
+
