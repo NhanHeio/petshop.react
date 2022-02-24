@@ -1,7 +1,10 @@
 
 import { Link } from 'react-router-dom';
 import './header.scss';
-import { useStore, actions } from '../../store';
+import { useState } from 'react';
+import { actions } from '../../store/actions';
+import { connect } from "react-redux";
+
 const headerNavItems = [
     {
         id: 0,
@@ -36,14 +39,11 @@ const headerNavItems = [
 ]
 const classActive = "p-2 lg:px-4 md:mx-2 text-white rounded bg-indigo-600"
 const classInactive = "p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
-const Header = () => {
+const Header = props => {
+    const [activeIndex, setActiveIndex] = useState(0)
     const handleClick = (index) => {
-        dispatch(actions.setIndex(index))
-        
+        setActiveIndex(index)
     }
-
-    const [activeIndex, dispatch] = useStore()
-
     return <div>
         <div className="header-sticky">
             <nav className="bg-white py-2 md:py-4">
@@ -55,16 +55,26 @@ const Header = () => {
                         </button>
                     </div>
                     <div className="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0" id="navbar-collapse">
-
                         {
                             headerNavItems.map((item) => (
 
-                                <Link to={item.to} key={item.id} onClick={() => handleClick(item.id)} className={item.id == Object.values(activeIndex) ? classActive : classInactive}>{item.display} </Link>
-
+                                <Link to={item.to} key={item.id} onClick={() => handleClick(item.id)} className={item.id === activeIndex ? classActive : classInactive}>{item.display} </Link>
                             ))
                         }
-                        <Link to="/signin" onClick={() => handleClick("signin")} className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-transparent rounded hover:bg-indigo-100 hover:text-indigo-700 transition-colors duration-300">Login</Link>
-                        <Link to="/signup" onClick={() => handleClick("signup")} className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-solid border-indigo-600 rounded hover:bg-indigo-600 hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1">Signup</Link>
+                        {
+                            !props.isLoggedIn &&
+                            <>
+                                <Link to="/signin" onClick={() => handleClick("signin")} className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-transparent rounded hover:bg-indigo-100 hover:text-indigo-700 transition-colors duration-300">Login</Link>
+                                <Link to="/signup" onClick={() => handleClick("signup")} className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-solid border-indigo-600 rounded hover:bg-indigo-600 hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1">Signup</Link>
+                            </>
+                        }
+                        {
+                            props.isLoggedIn &&
+                            <>
+                                {props.userInfo.name && <span className="p-2 lg:px-4 md:mx-2 text-gray-500 text-center border border-transparent rounded transition-colors duration-300">{props.userInfo.name}</span>}
+                                <button onClick={() => props.processLogout()} className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-transparent rounded hover:bg-gray-100 hover:text-red-600 transition-colors duration-300">Log out</button>
+                            </>
+                        }
                     </div>
                 </div>
             </nav>
@@ -72,4 +82,20 @@ const Header = () => {
     </div>;
 };
 
-export default Header;
+const mapStateToProps = state => {
+    return {
+        userInfo: state.user.userInfo,
+        isLoggedIn: state.user.isLoggedIn
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        processLogout: () => dispatch(actions.processLogout()),
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Header);

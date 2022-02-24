@@ -31,6 +31,7 @@ const SignupComponent = () => {
             }
         }
     }
+
     const handleShowPassword = () => {
         setShowPass(!showPass)
     }
