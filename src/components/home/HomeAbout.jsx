@@ -6,7 +6,7 @@ const HomeAbout = () => {
     return (
         <div>
             <div className="flex justify-center py-auto bg-gray-50">
-                <div className="w-1/5 my-40">
+                <div className="md:w-1/5 md:my-40 w-1/2 my-10">
                     <h1 className="text-center font-bold text-gray-800 text-4xl">Giới thiệu</h1>
                     <span className="text-center text-gray-600 text-2xl block mb-8">
                         Chúng tôi tạo ra website PetShop này để cung cấp đến quý khách hàng
@@ -16,7 +16,7 @@ const HomeAbout = () => {
                         About us
                     </Link>
                 </div>
-                <div className="w-1/5 my-40">
+                <div className="md:w-1/5 md:my-40 w-1/2 my-10">
                     <img className="mx-auto rounded-full" src="https://i.pinimg.com/originals/83/20/e9/8320e947c10986a251de255fb0ec9e47.jpg" alt="" />
                 </div>
 

@@ -3,7 +3,7 @@ import React from 'react'
 const AboutComponent = () => {
     return (
         <div className="bg-gray-50">
-            <div className="flex flex-col justify-around w-3/5 h-screen mt-20 mx-auto">
+            <div className="flex flex-col justify-around md:w-3/5 w-5/6 h-full md:mt-20 py-28 mx-auto">
                 <div>
                     <h1 className="text-4xl text-gray-600 font-bold my-6">PetShop là:</h1>
                     <p className="text-2xl text-gray-400 font-semibold my-6">PetShop được xây dựng dựa trên tiêu chí là cổng thông tin khổng lồ và hoàn toàn miễn phí về các vấn đề xung quanh động vật,
@@ -13,8 +13,8 @@ const AboutComponent = () => {
                         bên cạnh đó còn là trải nghiệm thực tế của chúng tôi trong quá trình nuôi thú cưng để đem đến cho độc
                         giả những thông tin chính xác và hữu ích nhất.</p>
                 </div>
-                <div className="flex justify-between">
-                    <div className="w-1/2 mx-3">
+                <div className="flex md:justify-between flex-col md:flex-row">
+                    <div className="md:w-1/2 md:mx-3 w-full mx-auto">
                         <h1 className="text-2xl text-gray-500 font-bold my-6">Sứ mệnh</h1>
                         <span className="text-xl text-gray-400 font-semibold my-6">Sứ mệnh của chúng tôi là mang đến cho thú cưng của khách hàng trải nghiệm tốt nhất.
                             Giúp thú cưng của khách hàng được tận hưởng những dịch vụ hàng đầu, cùng với đội ngũ nhân viên chuyên nghiệp
@@ -26,7 +26,7 @@ const AboutComponent = () => {
                             nguồn gốc xuất xứ rõ ràng, giá cả vô cùng hợp lý.
                         </span>
                     </div>
-                    <div className="w-1/2 mx-3">
+                    <div className="md:w-1/2 md:mx-3 w-full mx-auto">
                         <h1 className="text-2xl text-gray-500 font-bold my-6">Tầm nhìn</h1>
                         <span className="text-xl text-gray-400 font-semibold my-6">Chúng tôi mong muốn PetShop sẽ trở thành địa chỉ chăm sóc thú cưng đáng tin cậy
                              cho những người quan tâm và yêu thương động vật.

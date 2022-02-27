@@ -2,6 +2,7 @@ import React from 'react';
 
 const HomePicture = () => {
     const bgImg = {
+        width: '100%',
         backgroundImage: `url("https://www.americanhumane.org/app/uploads/2016/08/animals-cats-cute-45170-min.jpg")`,
         borderRadius: 10,
         boxShadow: true
