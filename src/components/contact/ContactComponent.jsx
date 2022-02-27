@@ -10,7 +10,7 @@ const ContactComponent = () => {
 
     return (
         <div className="bg-gray-50">
-            <div className="flex justify-around w-3/5 h-screen mt-20 mx-auto">
+            <div className="flex md:justify-around flex-col md:flex-row md:w-3/5 w-5/6 h-full mt-20 pb-20 mx-auto">
                 <div className="mx-4">
                     <div>
                         <h1 className="text-4xl text-gray-600 font-bold my-6">Liên hệ cửa hàng:</h1>
@@ -38,7 +38,7 @@ const ContactComponent = () => {
                             type="text"
                             className="block border border-grey-light w-full p-3 rounded mb-4"
                             name="phoneNumber"
-                            placeholder="Số điện thoại"
+                            placeholder="Phone Number"
                             value={phoneNumber}
                             onChange={e => setPhoneNumber(e.target.value)}
                         />
@@ -55,11 +55,11 @@ const ContactComponent = () => {
                             rows={3}
                             className="block border border-grey-light w-full p-3 rounded mb-4"
                             name="content"
-                            placeholder="Nội dung"
+                            placeholder="Content"
                             value={content}
                             onChange={e => setContent(e.target.value)}
                         />
-                        <button className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Gửi liên hệ</button>
+                        <button className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Send Contact</button>
                     </div>
                 </div >
             </div >

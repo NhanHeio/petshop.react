@@ -3,7 +3,7 @@ import React from 'react'
 const HomeCommit = () => {
     return (
         <div className="pb-6 bg-gray-50 border-t-1">
-            <div className="w-2/4 mx-auto ">
+            <div className="md:w-2/4 w-4/5 mx-auto ">
                 <h1 className="text-center font-bold text-gray-800 text-4xl">Cam kết</h1>
                 <span className="text-center text-gray-400 text-xl">PetShop được định hình là website cung cấp các thông tin và dịch vụ chăm sóc thú cưng uy tín, chất lượng.
                     Sự hài lòng của khách hàng là ưu tiên hàng đầu của PetShop.
@@ -11,7 +11,7 @@ const HomeCommit = () => {
                     Cũng như tập trung vào đổi mới phương thức kinh doanh phù hợp nhất với khách hàng.
                 </span>
             </div>
-            <div className="flex justify-around items-center mx-auto my-6 h-full w-3/4">
+            <div className="md:flex hidden justify-around items-center mx-auto my-6 h-full w-3/4">
                 <div className="w-1/3 mx-2">
                     <i className="fas fa-sticky-note text-gray-700 text-4xl"></i>
                     <h2 className="my-4 text-3xl text-gray-600">Nội dung</h2>
