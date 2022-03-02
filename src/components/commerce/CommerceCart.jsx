@@ -1,41 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, memo} from 'react';
 import { Badge } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
-import { handleGetCart } from '../../services/productService';
+import { handleRemoveCart } from '../../services/productService';
 import { connect } from 'react-redux';
 import { actions } from '../../store/actions';
 
 
 
-const CommerceCart = props => {
+const CommerceCart = ({products}) => {
     const [showCart, setShowCart] = useState(false)
-    //const [cartItemQuantity, setCartItemQuantity] = useState(0)
-    const [arrProducts, setArrProducts] = useState([])
+    // let [products, setProducts] = useState([])
     const handleClickCart = () => {
         setShowCart(!showCart)
     }
-    //console.log(props)
-    useEffect(() => {
-        const fetchCarts = async () => {
-            // let userID = (props.isLoggedIn ? props.userInfo.id : 0)
-            if (props.isLoggedIn) {
-                let response = await handleGetCart(props.userInfo.id)
-                props.fetchingCart(response)
-            } else {
-                props.fetchingCartFail()
-            }
-        }
-        fetchCarts()
-    }, [props.isLoggedIn])
-    let cartProps = (props.isLoading ? props.cartData.cart : props.cartData)
+    const removeItem = async (id) => {
+        await handleRemoveCart(id)
+    }
+    //console.log(props.isLoggedIn)
+    //console.log(products)
+    // //console.log(props)
+    // useEffect(() => {
+    //     const fetchCarts = async () => {
+    //         // let userID = (props.isLoggedIn ? props.userInfo.id : 0)
+    //         if (props.isLoggedIn) {
+    //             let response = await handleGetCart(props.userInfo.id)
+    //             setProducts(response)
+    //             props.fetchingCart(response)
+    //         } else {
+    //             props.fetchingCartFail()
+    //         }
+    //     }
+    //     fetchCarts()
+    // }, [props.isLoggedIn])
+    // let cartProps = (props.isLoading ? props.cartData.cart : props.cartData)
+    
     return (
         <div>
             {/* Cart logo */}
-            {cartProps &&
+            {products &&
                 (!showCart && (
                     <div className="text-3xl cursor-pointer w-9 h-9 float-right" onClick={() => handleClickCart()}>
                         {/* <i className="fas fa-shopping-cart"></i> */}
-                        <Badge badgeContent={cartProps.quantity} color="secondary">
+                        <Badge badgeContent={products.quantity} color="secondary">
                             <ShoppingCart />
                         </Badge>
                     </div>
@@ -44,7 +50,7 @@ const CommerceCart = props => {
 
             {/* Cart side */}
 
-            {cartProps &&
+            {products &&
                 (showCart && (
                     <div className="pointer-events-auto fixed w-auto max-w-md mt-20 right-2 top-12">
                         <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
@@ -61,8 +67,8 @@ const CommerceCart = props => {
                                     <div className="flow-root">
                                         <ul role="list" className="-my-6 divide-y divide-gray-200">
 
-                                            {cartProps &&
-                                                (cartProps.cartItems.map((item) => (
+                                            {products &&
+                                                (products.cartItems.map((item) => (
                                                     <li key={item.id} className="flex py-6">
                                                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                             <img src={item.img} alt={item.name} className="h-full w-full object-cover object-center"></img>
@@ -82,7 +88,12 @@ const CommerceCart = props => {
                                                                 <p className="text-gray-500">Qty {item.quantity}</p>
 
                                                                 <div className="flex">
-                                                                    <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                                                    <button
+                                                                        type="button"
+                                                                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                                                                        onClick={() => removeItem(item.id)}
+                                                                    >Remove
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -99,7 +110,7 @@ const CommerceCart = props => {
                             <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                                 <div className="flex justify-between text-base font-medium text-gray-900">
                                     <p>Subtotal</p>
-                                    <p>{cartProps.total_price}đ</p>
+                                    <p>{products.total_price}đ</p>
                                 </div>
                                 {/* <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p> */}
                                 <div className="mt-6">
@@ -124,19 +135,16 @@ const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
         userInfo: state.user.userInfo,
-        isLoading: state.cart.isLoading,
-        cartData: state.cart.cartData,
+        
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchingCart: (cartData) => dispatch(actions.fetchingCart(cartData)),
-        fetchingCartFail: () => dispatch(actions.fetchingCartFail()),
+        
     }
 }
-
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(CommerceCart)
+)(memo(CommerceCart))
