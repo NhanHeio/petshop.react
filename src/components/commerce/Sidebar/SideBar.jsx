@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import './commerceSidebar.scss'
 
-const CommerceSideBar = () => {
+const SideBar = ({filterProducts}) => {
     const sideBarItems = [
         { id: 1, name: 'Chó', icon: 'fas fa-dog' },
         { id: 2, name: 'Mèo', icon: 'fas fa-cat' },
@@ -13,6 +13,7 @@ const CommerceSideBar = () => {
     const [activeSidebar, setActiveSidebar] = useState(0)
     const handleClickSidebar = (id) => {
         setActiveSidebar(id)
+        filterProducts(id)
     }
     const active = 'flex items-center p-2 text-base font-normal text-slate-50 bg-sky-600 rounded-lg hover:bg-sky-800 cursor-pointer'
     const inActive = 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 cursor-pointer'
@@ -49,4 +50,4 @@ const CommerceSideBar = () => {
     )
 }
 
-export default CommerceSideBar
+export default memo(SideBar)
