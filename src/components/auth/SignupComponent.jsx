@@ -1,10 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { path } from '../../constants/constant';
 import { handleSignup } from '../../services/userService';
+import { actions } from '../../store/actions';
 
-const SignupComponent = () => {
+const SignupComponent = props => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
@@ -18,15 +20,18 @@ const SignupComponent = () => {
             let data = await handleSignup(name, email, phoneNumber, password, password2)
             if (data && data.errCode !== 0) {
                 setErrorMessage(data.message)
+                props.userRegisterFail()
             }
             if (data && data.errCode === 0) {
                 console.log(data.message)
+                props.userRegisterSuccess(data.user)
             }
         } catch (e) {
             console.log(e)
             if (e.response) {
                 if (e.response.data) {
                     setErrorMessage(e.response.data.message)
+                    props.userRegisterFail()
                 }
             }
         }
@@ -124,4 +129,22 @@ const SignupComponent = () => {
     </div>
 };
 
-export default SignupComponent;
+const mapStateToProps = state => {
+    return {
+        isLoggedIn: state.user.isLoggedIn,
+        userInfo: state.user.userInfo
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        userRegisterSuccess: (userInfo) => dispatch(actions.userRegisterSuccess(userInfo)),
+        userRegisterFail: () => dispatch(actions.userRegisterFail()),
+
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SignupComponent);

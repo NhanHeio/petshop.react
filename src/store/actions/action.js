@@ -9,6 +9,24 @@ export const userLoginFail = () => ({
     type: actionTypes.USER_LOGIN_FAIL,
 })
 
+export const userRegisterSuccess = (userInfo) => ({
+    type: actionTypes.USER_REGISTER_SUCCESS,
+    userInfo: userInfo,
+})
+
+export const userRegisterFail = () => ({
+    type: actionTypes.USER_REGISTER_FAIL,
+})
+
 export const processLogout = () => ({
     type: actionTypes.PROCESS_LOGOUT,
+})
+
+export const fetchingCart = (cartData) => ({
+    type: actionTypes.FETCHING_CART,
+    cartData: cartData,
+})
+
+export const fetchingCartFail =() => ({
+    type: actionTypes.FETCHING_CART_FAIL,
 })
