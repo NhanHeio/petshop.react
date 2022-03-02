@@ -1,13 +1,13 @@
 import React from 'react';
-import CommerceCart from '../components/commerce/CommerceCart';
-import CommerceSearch from '../components/commerce/CommerceSearch';
+import CommerceContent from '../components/commerce/CommerceContent';
+import CommerceHeader from '../components/commerce/CommerceHeader';
 import CommerceSideBar from '../components/commerce/CommerceSideBar';
 
 const Ecommerce = () => {
-  return <div className="h-screen w-full bg-gray-50">
-      <CommerceSideBar />
-      <CommerceSearch />
-      <CommerceCart />
+  return <div className="h-full w-full bg-gray-50">
+    <CommerceHeader />
+    <CommerceSideBar />
+    <CommerceContent />
   </div>;
 };
 
