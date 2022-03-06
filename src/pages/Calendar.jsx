@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import InputDatePicker from '../components/calendar/InputDatePicker';
 import ServicePicker from '../components/calendar/ServicePicker';
 import TimePicker from '../components/calendar/TimePicker';
@@ -9,6 +9,11 @@ const Calendar = () => {
     { name: 'Tắm sấy', url: 'https://i.pinimg.com/originals/d5/2d/5b/d52d5b481f67185928494f17ce8700aa.jpg' },
     { name: 'Khám bệnh', url: 'https://i.pinimg.com/originals/d3/f2/83/d3f283f6a49cf414497721ad49aae531.jpg' },
   ]
+
+  useEffect(() => {
+    document.title = 'Calendar'
+  },[])
+
   return <div className="h-full py-20 bg-gray-50">
     <div className="w-5/6 md:w-3/5 mx-auto my-4 ">
       <span className="py-2 px-3 text-gray-700 text-2xl">About our services:</span>

@@ -7,10 +7,6 @@ const actionTypes = Object.freeze({
     USER_REGISTER_SUCCESS: 'USER_REGISTER_SUCCESS',
     USER_REGISTER_FAIL: 'USER_REGISTER_FAIL',
 
-    //product
-   // FETCHING_DATA: 'FETCHING_DATA',
-   FETCHING_CART: 'FETCHING_CART',
-   FETCHING_CART_FAIL: 'FETCHING_CART_FAIL'
 })
 
 export default actionTypes;

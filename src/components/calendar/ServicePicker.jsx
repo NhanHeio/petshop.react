@@ -8,7 +8,7 @@ const ServicePicker = () => {
         { value: 'Khám bệnh', label: 'Khám bệnh' },
     ];
     const [selectedOption, setSelectedOption] = useState(null);
-    console.log(selectedOption)
+    
     return (
         <div className="mt-20 flex justify-center">
             <span className="py-2 px-3 text-gray-700 text-xl">Select Service: </span>

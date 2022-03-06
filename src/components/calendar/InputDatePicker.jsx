@@ -4,7 +4,7 @@ import "flatpickr/dist/themes/material_green.css";
 
 const InputDatePicker = () => {
     const [date, setDate] = useState(new Date())
-    console.log(date)
+    
     return (
         <div className="mt-20">
             <span className="text-gray-700 text-xl">Select date: </span>

@@ -6,5 +6,6 @@ export const path = {
     CALENDAR: '/calendar',
     COMMERCE: '/commerce',
     ABOUT: '/about',
-    CONTACT: '/contact'
+    CONTACT: '/contact',
+    PRODUCT: '/commerce/product/:id'
 }

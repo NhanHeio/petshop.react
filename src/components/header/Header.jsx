@@ -1,7 +1,7 @@
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './header.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { actions } from '../../store/actions';
 import { connect } from "react-redux";
 
@@ -10,7 +10,7 @@ const headerNavItems = [
         id: 0,
         display: "Home",
         to: "/",
-        section: ""
+        section: " "
     },
     {
         id: 1,
@@ -40,13 +40,23 @@ const headerNavItems = [
 const classActive = "p-2 lg:px-4 md:mx-2 text-white rounded bg-indigo-600"
 const classInactive = "p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
 const Header = props => {
-    const [activeIndex, setActiveIndex] = useState(0)
+    const [activeIndex, setActiveIndex] = useState(' ')
     const [showHeader, setShowHeader] = useState(true)
-    const handleClick = (index) => {
-        setActiveIndex(index)
+    const location = useLocation()
+    const handleClick = () => {
+        //setActiveIndex(location.pathname)
+        // setActiveIndex(index)
+        //console.log(activeIndex)
         document.getElementById("navbar-collapse").classList.add("hidden")
         setShowHeader(!showHeader)
     }
+    useEffect(() => {
+        if(location.pathname.length === 1){
+            setActiveIndex(' ')
+        }else{
+            setActiveIndex(location.pathname)
+        }
+    },[location.pathname])
     const handleClickHeader = () => {
         setShowHeader(!showHeader)
         if(showHeader) {
@@ -75,7 +85,7 @@ const Header = props => {
                                 {
                                     headerNavItems.map((item) => (
 
-                                        <Link to={item.to} key={item.id} onClick={() => handleClick(item.id)} className={item.id === activeIndex ? classActive : classInactive}>{item.display} </Link>
+                                        <Link to={item.to} key={item.id} onClick={() => handleClick()} className={activeIndex.search(item.section) !== -1 ? classActive : classInactive}>{item.display} </Link>
                                     ))
                                 }
                                 {
