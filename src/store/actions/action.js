@@ -22,11 +22,3 @@ export const processLogout = () => ({
     type: actionTypes.PROCESS_LOGOUT,
 })
 
-export const fetchingCart = (cartData) => ({
-    type: actionTypes.FETCHING_CART,
-    cartData: cartData,
-})
-
-export const fetchingCartFail =() => ({
-    type: actionTypes.FETCHING_CART_FAIL,
-})

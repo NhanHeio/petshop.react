@@ -1,5 +1,4 @@
 import React from 'react';
-import { Description } from '@material-ui/icons';
 
 const HomeCommit = () => {
     return (
