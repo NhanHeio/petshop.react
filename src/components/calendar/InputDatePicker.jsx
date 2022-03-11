@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_green.css";
 
-const InputDatePicker = () => {
+const InputDatePicker = ({getDate}) => {
     const [date, setDate] = useState(new Date())
+    const changeSelectedOption = (date) => {
+        setDate(date)
+        getDate(date.toString())
+    }
     
     return (
         <div className="mt-20">
@@ -18,7 +22,7 @@ const InputDatePicker = () => {
                     dateFormat: "d-m-Y"
                 }}
                 onChange={date => {
-                    setDate(date);
+                    changeSelectedOption(date)
                 }}
             />
 
@@ -26,4 +30,4 @@ const InputDatePicker = () => {
     )
 }
 
-export default InputDatePicker
+export default memo(InputDatePicker);

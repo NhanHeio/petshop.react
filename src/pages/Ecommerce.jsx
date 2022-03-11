@@ -34,6 +34,7 @@ const Ecommerce = (props) => {
   }
 
   const handleRemoveCartItem = async (id) => {
+    console.log(id)
     let response = await handleRemoveCart(id)
     setCart(response.cart)
     setLoadCart(true)
@@ -66,14 +67,14 @@ const Ecommerce = (props) => {
 
   useEffect(() => {
     fetchProducts()
-  }, [filter])
-  useEffect(() =>{
     fetchCarts(userID)
+
     return setLoadCart(false)
-  },[loadCart])
+  }, [filter, loadCart])
+
   useEffect(() => {
     document.title = 'E-Commerce'
-  },[])
+  }, [])
 
   return <div className="h-full w-full bg-gray-50">
 

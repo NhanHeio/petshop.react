@@ -27,6 +27,12 @@ const handleAddToCart = (params) => {
 const handleRemoveCart = (id) => {
     return axios.delete(`/api/delete-cart-product?id=${id}`)
 }
+// const handlePlaceAnOrder = (params) => {
+//     return axios.post(`/api/checkout-order?${params}`)
+// }
+const handlePlaceAnOrder = (user_id,name,phoneNumber,address) => {
+    return axios.post(`/api/checkout-order?user_id=${user_id}`,{name,phoneNumber,address})
+}
 export {
     handleGetType,
     handleGetAllProducts,
@@ -35,5 +41,6 @@ export {
     handleGetComments,
     handleGetCart,
     handleRemoveCart,
-    handleAddToCart
+    handleAddToCart,
+    handlePlaceAnOrder,
 }

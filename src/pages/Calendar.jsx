@@ -1,18 +1,73 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import queryString from 'query-string';
+import { useSnackbar } from 'notistack';
 import InputDatePicker from '../components/calendar/InputDatePicker';
 import ServicePicker from '../components/calendar/ServicePicker';
 import TimePicker from '../components/calendar/TimePicker';
+import { handleBookings, handleGetBookings } from '../services/bookingService';
 
-const Calendar = () => {
+const Calendar = (props) => {
   const imageLink = [
     { name: 'Cạo lông', url: 'https://i.pinimg.com/originals/02/0b/28/020b285836a5fdeb72c71e47f0a097ee.jpg' },
     { name: 'Tắm sấy', url: 'https://i.pinimg.com/originals/d5/2d/5b/d52d5b481f67185928494f17ce8700aa.jpg' },
     { name: 'Khám bệnh', url: 'https://i.pinimg.com/originals/d3/f2/83/d3f283f6a49cf414497721ad49aae531.jpg' },
   ]
 
+  const [service, setService] = useState()
+  const [date, setDate] = useState()
+  const [time, setTime] = useState()
+  const [booking, setBooking] = useState([])
+  const [load, setLoad] = useState(false)
+  const userID = props.isLoggedIn ? props.userInfo.id : null
+  const { enqueueSnackbar } = useSnackbar();
+  let value = {
+    userID,
+    service,
+    date,
+    time,
+  }
+  
+
+  const getService = (id) => {
+    setService(id)
+  }
+  const getDate = (date) => {
+    setDate(date.substr(0,15))
+  }
+  const getTime = (time) => {
+    setTime(time)
+  }
+
+  const fetchBookings = async () => {
+    const response = await handleGetBookings(value.date)
+    setBooking(response.calendar)
+  }
+
+  const handleSubmitBooking = async () => {
+    if(!value.date || !value.service || !value.time || !value.userID){
+      let params = queryString.stringify(value)
+      const response = await handleBookings(params)
+      if(response.errCode === 0){
+        enqueueSnackbar('Booking service successfully!', {
+          variant: 'success'
+        })
+        setLoad(true)
+      }
+    }else{
+      enqueueSnackbar('Missng parameters!', {
+        variant: 'error'
+      })
+    }
+  }
+
   useEffect(() => {
     document.title = 'Calendar'
   },[])
+  useEffect(() => {
+    fetchBookings()
+    return setLoad(false)
+  },[value.date,load])
 
   return <div className="h-full py-20 bg-gray-50">
     <div className="w-5/6 md:w-3/5 mx-auto my-4 ">
@@ -29,16 +84,32 @@ const Calendar = () => {
       </div>
     </div>
     <div className="flex flex-col md:flex-row mx-auto md:justify-around md:w-1/2">
-      <ServicePicker />
-      <InputDatePicker />
+      <ServicePicker getService={getService} />
+      <InputDatePicker getDate={getDate} />
     </div>
-    <div className="w-5/6 md:w-1/2 mx-auto mt-3">
-      <TimePicker />
-    </div>
-    <div className="w-5/6 md:w-1/2">
-      <button className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 ml-20 rounded-full">Booking</button>
-    </div>
+    {value.date && <div id="time-picker" className=" w-5/6 md:w-1/2 mx-auto mt-3">
+      <TimePicker getTime={getTime} booking={booking} />
+    </div>}
+    {value.date && <div id="button-booking" className=" w-5/6 md:w-1/2">
+      <button onClick={() => {handleSubmitBooking()}} className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 ml-20 rounded-full">Booking</button>
+    </div>}
   </div>;
 };
 
-export default Calendar;
+const mapStateToProps = state => {
+  return {
+    isLoggedIn: state.user.isLoggedIn,
+    userInfo: state.user.userInfo,
+
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  }
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Calendar);

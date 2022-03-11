@@ -12,6 +12,7 @@ import Signup from '../pages/Signup';
 import Signin from '../pages/Signin';
 import Footer from '../components/footer/Footer';
 import ProductDetail from '../components/commerce/Products/ProductDetail';
+import Checkout from '../components/commerce/Checkout/Checkout';
 
 
 const Applayout = () => {
@@ -42,6 +43,7 @@ const Applayout = () => {
       <Route path={path.SIGNUP} element={<Signup />} />
       <Route path={path.LOGIN} element={<Signin />} />
       <Route path={path.PRODUCT} element={<ProductDetail />} />
+      <Route path={path.CHECKOUT} element={<Checkout />} />
     </Routes>
     <Footer />
   </div>;

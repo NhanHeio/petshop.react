@@ -1,9 +1,10 @@
 import React from 'react';
+import img from '../../assets/image/bgHome.jpg';
 
 const HomePicture = () => {
     const bgImg = {
         width: '100%',
-        backgroundImage: `url("https://www.americanhumane.org/app/uploads/2016/08/animals-cats-cute-45170-min.jpg")`,
+        backgroundImage: `url(${img})`,
         borderRadius: 10,
         boxShadow: true
     }
