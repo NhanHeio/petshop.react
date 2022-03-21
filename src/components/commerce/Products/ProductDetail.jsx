@@ -39,12 +39,14 @@ const ProductDetail = (props) => {
       if (response.errCode === 0) {
         console.log("Add to cart successfully")
         enqueueSnackbar('Add product to cart successfully!', {
-          variant: 'success'
+          variant: 'success',
+          autoHideDuration: 3000
         })
       } else {
         console.log("Add to cart failed", response.errMessage)
         enqueueSnackbar('Add product to cart failed!', {
-          variant: 'error'
+          variant: 'error',
+          autoHideDuration: 3000
         })
       }
       return response
@@ -68,7 +70,8 @@ const ProductDetail = (props) => {
         await handlePostComment(params)
         setComment('')
         enqueueSnackbar('Post comment successfully!', {
-          variant: 'success'
+          variant: 'success',
+          autoHideDuration: 3000
         })
       } else {
         console.log("content empty")

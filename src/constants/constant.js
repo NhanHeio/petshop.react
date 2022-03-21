@@ -9,4 +9,5 @@ export const path = {
     CONTACT: '/contact',
     PRODUCT: '/commerce/product/:id',
     CHECKOUT: '/commerce/checkout',
+    PROFILE: '/profile/:id',
 }

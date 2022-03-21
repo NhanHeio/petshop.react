@@ -5,6 +5,11 @@ export const userLoginSuccess = (userInfo) => ({
     userInfo: userInfo,
 })
 
+export const userUpdateSuccess = (userInfo) => ({
+    type: actionTypes.UPDATE_USER_INFO_SUCCESS,
+    userInfo: userInfo
+})
+
 export const userLoginFail = () => ({
     type: actionTypes.USER_LOGIN_FAIL,
 })
