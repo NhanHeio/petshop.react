@@ -8,5 +8,8 @@ const handleSignup = (name, email, phoneNumber, password, password2) => {
 const handleUpdateInfo = (params) => {
     return axios.post(`/api/update-user-info?${params}`)
 }
+const handleUpdatePassword = (params) => {
+    return axios.post(`/api/update-user-password?${params}`)
+}
 
-export { handleLogin,handleSignup,handleUpdateInfo}
+export { handleLogin,handleSignup,handleUpdateInfo,handleUpdatePassword}

@@ -9,7 +9,7 @@ const Cart = ({cart,handleClickCart,handleRemoveCartItem}) => {
     } 
     return (
         <div>
-            <div id="cart" className="pointer-events-auto fixed w-auto max-w-md mt-20 right-2 top-12">
+            <div id="cart" className="pointer-events-auto max-h-[22rem] overflow-scroll fixed w-auto max-w-md mt-20 right-2 top-12">
                 <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                     <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                         <div className="flex items-start justify-between">

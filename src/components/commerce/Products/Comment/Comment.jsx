@@ -9,7 +9,7 @@ const Comment = ({productComment}) => {
                 productComment.map((comment) => (
                     <div key={comment.id} className="flex flex-row px-4 my-2 border-b-2">
                         <div className="w-fit">
-                            <Avatar alt={comment.user_name} src={comment.user_img} />
+                            <Avatar alt={comment.user_name} src={process.env.REACT_APP_AVATAR + comment.user_img} />
                         </div>
                         <div className="w-fit max-w-xs break-normal mx-3 flex flex-col items-start">
                             <div>

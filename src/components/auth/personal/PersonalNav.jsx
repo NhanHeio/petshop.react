@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const PersonalNav = () => {
+const PersonalNav = ({getActiveIndex}) => {
     const Nav = [
         { id: 1, name: 'My account'},
         { id: 2, name: 'Change password'},
@@ -10,6 +10,7 @@ const PersonalNav = () => {
     const [activeSidebar, setActiveSidebar] = useState(1)
     const handleClickSidebar = (id) => {
         setActiveSidebar(id)
+        getActiveIndex(id)
     }
     const active = 'flex items-center p-2 text-base font-normal text-slate-50 bg-sky-600 rounded-lg hover:bg-sky-800 cursor-pointer'
     const inActive = 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 cursor-pointer'

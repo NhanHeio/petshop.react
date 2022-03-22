@@ -10,18 +10,25 @@ const UserDetails = ({ info, getInfo, updateInfo }) => {
     const [avatar, setAvatar] = useState('')
     const [img, setImg] = useState('')
     const { enqueueSnackbar } = useSnackbar();
+    let userInfoUpdate = {
+        name: info.name,
+        email: info.email,
+        phoneNumber: info.phoneNumber,
+        address: info.address,
+        img: info.img,
+    }
 
     const handleUpdateInfo = (name, email, phoneNumber, address) => {
-        let userInfoUpdate = {
+        userInfoUpdate = {
+            ...userInfoUpdate,
             name: name,
             email: email,
             phoneNumber: phoneNumber,
-            address: address
+            address: address,
         }
         getInfo(userInfoUpdate)
         updateInfo(userInfoUpdate)
     }
-    console.log(process.env.REACT_APP_PAYPAL_CLIENT_ID)
     const handleUpload = async () => {
         const fd = new FormData()
         fd.append('email', email)
@@ -34,10 +41,12 @@ const UserDetails = ({ info, getInfo, updateInfo }) => {
                 headers: { "Content-Type": "multipart/form-data" },
             })
             if (response.errCode === 0) {
-                enqueueSnackbar(response.errMessage, {
-                    variant: 'success',
-                    autoHideDuration: 3000
-                })
+                userInfoUpdate = {
+                    ...userInfoUpdate,
+                    img: response.user.img
+                }
+                getInfo(userInfoUpdate)
+                updateInfo(userInfoUpdate)
             } else {
                 enqueueSnackbar(response.errMessage, {
                     variant: 'error',
@@ -54,7 +63,7 @@ const UserDetails = ({ info, getInfo, updateInfo }) => {
         setPhoneNumber(info.phoneNumber)
         setAddress(info.address)
         setEmail(info.email)
-        setAvatar(info.img)
+        setAvatar((process.env.REACT_APP_AVATAR + info.img))
     }, [info])
     return (
         <div className="w-1/2">

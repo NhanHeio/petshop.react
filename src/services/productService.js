@@ -33,6 +33,15 @@ const handleRemoveCart = (id) => {
 const handlePlaceAnOrder = (user_id,name,phoneNumber,address) => {
     return axios.post(`/api/checkout-order?user_id=${user_id}`,{name,phoneNumber,address})
 }
+const handleGetOrderByUser = (userID) => {
+    return axios.get(`/api/get-order/user?userID=${userID}`)
+}
+const handleGetOrderByOrderID = (id) => {
+    return axios.get(`/api/get-order/order?id=${id}`)
+}
+const handleCancelOrder = (params) => {
+    return axios.post(`/api/cancel-order?${params}`)
+}
 export {
     handleGetType,
     handleGetAllProducts,
@@ -43,4 +52,7 @@ export {
     handleRemoveCart,
     handleAddToCart,
     handlePlaceAnOrder,
+    handleGetOrderByUser,
+    handleGetOrderByOrderID,
+    handleCancelOrder,
 }

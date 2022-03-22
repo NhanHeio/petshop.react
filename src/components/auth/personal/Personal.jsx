@@ -4,19 +4,27 @@ import { useSnackbar } from 'notistack';
 import queryString from 'query-string';
 import PersonalNav from './PersonalNav'
 import UserDetails from './UserDetails'
-import {handleUpdateInfo} from '../../../services/userService'
+import { handleUpdateInfo } from '../../../services/userService'
 import { actions } from '../../../store/actions';
 import ChangePassword from './ChangePassword';
+import BookingHistory from './BookingHistory';
+import OrderHistory from './OrderHistory';
 
 const Personal = (props) => {
+  const [active, setActive] = useState(1)
   const [info, setInfo] = useState({
     name: '',
     email: '',
     phoneNumber: '',
-    address: ''
+    address: '',
+    img: ''
   })
   const [load, setLoad] = useState(true)
   const { enqueueSnackbar } = useSnackbar();
+
+  const getActiveIndex = (id) => {
+    setActive(id)
+  }
 
   const fetchUserInfo = () => {
     if (props.isLoggedIn) {
@@ -36,13 +44,13 @@ const Personal = (props) => {
   const updateInfo = async (info) => {
     let params = queryString.stringify(info)
     let response = await handleUpdateInfo(params)
-    if(response.errCode === 0){
-      props.userUpdateSuccess(response.userInfo)
+    if (response.errCode === 0) {
+      props.userUpdateSuccess(response.user)
       enqueueSnackbar(response.errMessage, {
         variant: 'success',
         autoHideDuration: 3000
       })
-    }else{
+    } else {
       enqueueSnackbar(response.errMessage, {
         variant: 'error',
         autoHideDuration: 3000
@@ -51,14 +59,28 @@ const Personal = (props) => {
   }
   useEffect(() => {
     fetchUserInfo()
-  },[load])
+  }, [load])
   return (
     <div className="bg-slate-50 py-40">
-      
+
       <div className="flex flex-row">
-        <PersonalNav />
-        <UserDetails info={info} getInfo={getInfo} updateInfo={updateInfo} />
-        {/* <ChangePassword /> */}
+        <PersonalNav getActiveIndex={getActiveIndex} />
+        {
+          (active === 1) &&
+          <UserDetails info={info} getInfo={getInfo} updateInfo={updateInfo} />
+        }
+        {
+          (active === 2) &&
+          <ChangePassword />
+        }
+        {
+          (active === 3) &&
+          <BookingHistory />
+        }
+        {
+          (active === 4) &&
+          <OrderHistory />
+        }
       </div>
     </div>
   )
