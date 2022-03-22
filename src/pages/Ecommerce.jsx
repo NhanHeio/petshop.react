@@ -75,7 +75,6 @@ const Ecommerce = (props) => {
   useEffect(() => {
     document.title = 'E-Commerce'
   }, [])
-
   return <div className="h-full w-full bg-gray-50">
 
     <Navbar cart={cart} handleRemoveCartItem={handleRemoveCartItem} getName={getName} />

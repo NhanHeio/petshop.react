@@ -34,6 +34,7 @@ const Calendar = (props) => {
   }
   const getDate = (date) => {
     setDate(date.substr(0,15))
+    setLoad(true)
   }
   const getTime = (time) => {
     setTime(time)
@@ -45,31 +46,48 @@ const Calendar = (props) => {
   }
 
   const handleSubmitBooking = async () => {
-    if(!value.date || !value.service || !value.time || !value.userID){
-      let params = queryString.stringify(value)
-      const response = await handleBookings(params)
-      if(response.errCode === 0){
-        enqueueSnackbar('Booking service successfully!', {
-          variant: 'success'
+    if(props.isLoggedIn){
+      if(!value.date || !value.service || !value.time || !value.userID){
+        enqueueSnackbar('Missng parameters!', {
+          variant: 'error',
+          autoHideDuration: 3000
         })
-        setLoad(true)
+      }else{
+        let params = queryString.stringify(value)
+        const response = await handleBookings(params)
+        if(response.errCode === 0){
+          enqueueSnackbar('Booking service successfully!', {
+            variant: 'success',
+            autoHideDuration: 3000
+          })
+          setLoad(true)
+        }else{
+          enqueueSnackbar('Something was wrong when you booking!', {
+            variant: 'error',
+            autoHideDuration: 3000
+          })
+        }
       }
     }else{
-      enqueueSnackbar('Missng parameters!', {
-        variant: 'error'
+      //not login
+      enqueueSnackbar('Please Login', {
+        variant: 'error',
+        autoHideDuration: 3000
       })
     }
   }
 
   useEffect(() => {
-    document.title = 'Calendar'
+      document.title = 'Calendar'
   },[])
   useEffect(() => {
-    fetchBookings()
-    return setLoad(false)
-  },[value.date,load])
+    
+      fetchBookings()
+      return setLoad(false)
+    
+  },[load])
 
-  return <div className="h-full py-20 bg-gray-50">
+  return <div className="h-full min-h-screen py-20 bg-gray-50">
     <div className="w-5/6 md:w-3/5 mx-auto my-4 ">
       <span className="py-2 px-3 text-gray-700 text-2xl">About our services:</span>
       <div className="flex flex-col md:flex-row md:justify-around w-full mx-auto ">
@@ -87,10 +105,10 @@ const Calendar = (props) => {
       <ServicePicker getService={getService} />
       <InputDatePicker getDate={getDate} />
     </div>
-    {value.date && <div id="time-picker" className=" w-5/6 md:w-1/2 mx-auto mt-3">
+    {value.date && <div id="time-picker" className="w-5/6 md:w-1/2 mx-auto mt-3">
       <TimePicker getTime={getTime} booking={booking} />
     </div>}
-    {value.date && <div id="button-booking" className=" w-5/6 md:w-1/2">
+    {value.date && <div id="button-booking" className="w-5/6 md:w-1/2">
       <button onClick={() => {handleSubmitBooking()}} className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 ml-20 rounded-full">Booking</button>
     </div>}
   </div>;
@@ -104,7 +122,7 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {
 
   }

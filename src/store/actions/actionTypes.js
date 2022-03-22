@@ -7,6 +7,7 @@ const actionTypes = Object.freeze({
     USER_REGISTER_SUCCESS: 'USER_REGISTER_SUCCESS',
     USER_REGISTER_FAIL: 'USER_REGISTER_FAIL',
 
+    UPDATE_USER_INFO_SUCCESS: 'UPDATE_USER_INFO_SUCCESS'
 })
 
 export default actionTypes;

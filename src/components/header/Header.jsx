@@ -98,7 +98,7 @@ const Header = props => {
                                 {
                                     props.isLoggedIn &&
                                     <>
-                                        {props.userInfo.name && <span className="p-2 lg:px-4 md:mx-2 text-gray-500 text-center border border-transparent rounded transition-colors duration-300">{props.userInfo.name}</span>}
+                                        {props.userInfo.name && <Link to={`/profile/${props.userInfo.id}`} className="p-2 lg:px-4 md:mx-2 text-gray-500 text-center border border-transparent rounded transition-colors duration-300">{props.userInfo.name}</Link>}
                                         <button onClick={() => props.processLogout()} className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-transparent rounded hover:bg-gray-100 hover:text-red-600 transition-colors duration-300">Log out</button>
                                     </>
                                 }

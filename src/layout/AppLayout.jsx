@@ -13,6 +13,7 @@ import Signin from '../pages/Signin';
 import Footer from '../components/footer/Footer';
 import ProductDetail from '../components/commerce/Products/ProductDetail';
 import Checkout from '../components/commerce/Checkout/Checkout';
+import Personal from '../components/auth/personal/Personal';
 
 
 const Applayout = () => {
@@ -44,6 +45,7 @@ const Applayout = () => {
       <Route path={path.LOGIN} element={<Signin />} />
       <Route path={path.PRODUCT} element={<ProductDetail />} />
       <Route path={path.CHECKOUT} element={<Checkout />} />
+      <Route path={path.PROFILE} element={<Personal />} />
     </Routes>
     <Footer />
   </div>;

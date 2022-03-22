@@ -35,37 +35,41 @@ const Checkout = (props) => {
         let response = await handlePlaceAnOrder(userID, name, phoneNumber, address);
         if (response.errCode === 0) {
           enqueueSnackbar('Place an order successfully!', {
-            variant: 'success'
+            variant: 'success',
+            autoHideDuration: 3000
           })
         } else {
           enqueueSnackbar('Place an order failed!', {
-            variant: 'error'
+            variant: 'error',
+            autoHideDuration: 3000
           })
         }
       } else {
         enqueueSnackbar('Missing parameters', {
-          variant: 'error'
+          variant: 'error',
+          autoHideDuration: 3000
         })
       }
     } else {
       enqueueSnackbar('Order failed. Please Login to order', {
-        variant: 'error'
+        variant: 'error',
+        autoHideDuration: 3000
       })
     }
 
   }
 
   useEffect(() => {
-
     fetchShippingData()
-    handleGetCart(3)
+    handleGetCart(userID)
       .then(rs => {
         setCart(rs.cart)
       })
       .catch(err => console.log(err))
-  }, [])
 
-  
+  }, [userID])
+
+
 
   return (
     <div className="w-3/5 mx-auto mt-20 bg-slate-50">
