@@ -1,5 +1,4 @@
 import React, { useState, memo } from 'react';
-import './commerceSidebar.scss'
 
 const SideBar = ({filterProducts}) => {
     const sideBarItems = [
@@ -19,7 +18,7 @@ const SideBar = ({filterProducts}) => {
     const inActive = 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 cursor-pointer'
     return (
         <div>
-            <aside className="aside-sticky w-1/6 mt-40 mx-8 shadow-sm">
+            <aside className="md:block hidden fixed top-5 bottom-14 left-0 z-[999] py-0 w-1/6 mt-40 mx-8 shadow-sm">
                 <div>
                     <span className="my-3 text-3xl text-gray-600 font-bold">Product Category</span>
                     <div className="px-3 py-4 overflow-y-auto rounded bg-white">

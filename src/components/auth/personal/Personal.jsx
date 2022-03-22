@@ -9,6 +9,8 @@ import { actions } from '../../../store/actions';
 import ChangePassword from './ChangePassword';
 import BookingHistory from './BookingHistory';
 import OrderHistory from './OrderHistory';
+import Header from '../../header/Header'
+import Footer from '../../footer/Footer'
 
 const Personal = (props) => {
   const [active, setActive] = useState(1)
@@ -60,7 +62,8 @@ const Personal = (props) => {
   useEffect(() => {
     fetchUserInfo()
   }, [load])
-  return (
+  return (<>
+  <Header />
     <div className="bg-slate-50 py-40">
 
       <div className="flex flex-row">
@@ -83,6 +86,8 @@ const Personal = (props) => {
         }
       </div>
     </div>
+    <Footer />
+  </>
   )
 }
 

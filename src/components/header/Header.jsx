@@ -4,6 +4,7 @@ import './header.scss';
 import { useEffect, useState } from 'react';
 import { actions } from '../../store/actions';
 import { connect } from "react-redux";
+import logo from '../../assets/image/logo-home.png';
 
 const headerNavItems = [
     {
@@ -71,7 +72,7 @@ const Header = props => {
             <nav className="bg-white py-2 md:py-4">
                 <div className="container px-4 mx-auto md:flex md:items-center">
                     <div className="flex justify-between items-center">
-                        <Link to="/" className="font-bold text-xl text-indigo-600">PetShop</Link>
+                        <Link to="/" className="font-bold text-xl text-indigo-600"><img className="w-28 -m-4" src={logo} alt="logo" /></Link>
                         <button className="border border-solid border-gray-600 px-3 py-1 rounded text-gray-600 opacity-50 hover:opacity-75 md:hidden"
                             onClick={() => handleClickHeader()}
                         >

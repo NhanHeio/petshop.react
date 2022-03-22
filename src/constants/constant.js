@@ -10,4 +10,5 @@ export const path = {
     PRODUCT: '/commerce/product/:id',
     CHECKOUT: '/commerce/checkout',
     PROFILE: '/profile/:id',
+    DASHBOARD: '/dashboard'
 }
