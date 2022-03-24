@@ -38,11 +38,11 @@ const Login = props => {
     let navigate = useNavigate()
     useEffect(() => {
         if(props.isLoggedIn){
-            if(props.userInfo.role_id === 3){
-                return navigate("/")
-            }
-            if(props.userInfo.role_id === 1 || props.userInfo.role_id === 2){
+            if(props.userInfo.role_id === 1){
                 return navigate("/dashboard")
+            }
+            else{
+                return navigate("/")
             }
         }
     },[props.isLoggedIn])

@@ -4,6 +4,7 @@ import { handleGetCart, handlePlaceAnOrder } from '../../../services/productServ
 import { useSnackbar } from 'notistack';
 import Payment from './Payment';
 import { Box, MenuItem, FormControl, Select } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 
 const Checkout = (props) => {
@@ -14,6 +15,12 @@ const Checkout = (props) => {
   const [cart, setCart] = useState()
   const [payment, setPayment] = useState(1)
   const { enqueueSnackbar } = useSnackbar();
+  let navigate = useNavigate()
+  const checkUserLogin = () => {
+    if(!props.isLoggedIn){
+      return navigate("/signin")
+    }
+  }
 
   let userID = (props.isLoggedIn ? props.userInfo.id : 0)
 
@@ -38,6 +45,7 @@ const Checkout = (props) => {
             variant: 'success',
             autoHideDuration: 3000
           })
+          return navigate("/commerce")
         } else {
           enqueueSnackbar('Place an order failed!', {
             variant: 'error',
@@ -60,6 +68,7 @@ const Checkout = (props) => {
   }
 
   useEffect(() => {
+    checkUserLogin()
     fetchShippingData()
     handleGetCart(userID)
       .then(rs => {
