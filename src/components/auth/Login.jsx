@@ -38,7 +38,12 @@ const Login = props => {
     let navigate = useNavigate()
     useEffect(() => {
         if(props.isLoggedIn){
-            return navigate("/")
+            if(props.userInfo.role_id === 1){
+                return navigate("/dashboard")
+            }
+            else{
+                return navigate("/")
+            }
         }
     },[props.isLoggedIn])
     const handleShowPassword = () =>{

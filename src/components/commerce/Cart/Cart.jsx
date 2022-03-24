@@ -24,7 +24,7 @@ const Cart = ({cart,handleClickCart,handleRemoveCartItem}) => {
                             <div className="flow-root">
                                 <ul role="list" className="-my-6 divide-y divide-gray-200">
 
-                                    {cart &&
+                                    {cart ?
                                         (cart.cartItems.map((item) => (
                                             <li key={item.id} className="flex py-6">
                                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -56,7 +56,7 @@ const Cart = ({cart,handleClickCart,handleRemoveCartItem}) => {
                                                 </div>
                                             </li>
                                         ))
-                                        )
+                                        ) : <img className="" src="https://rtworkspace.com/wp-content/plugins/rtworkspace-ecommerce-wp-plugin/assets/img/empty-cart.png" alt="Empty cart" />
                                     }
 
                                 </ul>

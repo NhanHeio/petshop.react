@@ -5,6 +5,7 @@ import Cart from '../Cart/Cart';
 
 const Navbar = ({ cart, handleRemoveCartItem, getName }) => {
     const [hideCart, setHideCart] = useState(true)
+    const [hideSidebar, setHideSidebar] = useState(false)
     const [searchContent, setSearchContent] = useState('');
     const handleClickCart = () => {
         setHideCart(!hideCart)
@@ -17,8 +18,9 @@ const Navbar = ({ cart, handleRemoveCartItem, getName }) => {
     //const cartItems = cart.cartItems
     return (
         <div className="fixed flex flex-row pt-20 w-full px-20 border-b-2 bg-white z-50">
-            <div className="basis-1/4"></div>
-            <div className="basis-1/2">
+            <div className="md:basis-1/4 basis-0">
+            </div>
+            <div className="md:basis-1/2 basis-5/6">
                 <div className="flex justify-center w-full">
                     <div className=" w-full">
                         <div className="relative flex items-stretch w-full mb-4">
@@ -39,17 +41,17 @@ const Navbar = ({ cart, handleRemoveCartItem, getName }) => {
                     </div>
                 </div>
             </div>
-            <div className="basis-1/4">
+            <div className="md:basis-1/4 basis-1/6">
                 {hideCart ?
                     (<div className="text-3xl cursor-pointer w-9 h-9 float-right">
                         {/* <Badge badgeContent={cart.quantity} color="secondary" onClick={() => { handleClickCart() }}>
                             <ShoppingCart />
                         </Badge> */}
-                        
-                            <Badge badgeContent={cart.quantity} color="secondary" onClick={() => { handleClickCart() }}>
-                                <ShoppingCartIcon />
-                            </Badge>
-                        
+
+                        <Badge badgeContent={cart.quantity} color="secondary" onClick={() => { handleClickCart() }}>
+                            <ShoppingCartIcon />
+                        </Badge>
+
                     </div>) :
                     <Cart cart={cart} handleClickCart={handleClickCart} handleRemoveCartItem={handleRemoveCartItem} />
 

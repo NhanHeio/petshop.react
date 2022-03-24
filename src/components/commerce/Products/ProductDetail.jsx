@@ -6,6 +6,8 @@ import { handleAddToCart, handleGetComments, handleGetProductDetails, handlePost
 import { connect } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import Comment from './Comment/Comment';
+import Header from '../../header/Header';
+import Footer from '../../footer/Footer';
 
 const ProductDetail = (props) => {
   const [quantity, setQuantity] = useState(1)
@@ -86,11 +88,12 @@ const ProductDetail = (props) => {
     fetchProductDetail()
   }, [])
   useEffect(() => {
-      fetchComment()
-      return setLoad(false)
+    fetchComment()
+    return setLoad(false)
 
   }, [load])
-  return (
+  return (<>
+    <Header />
     <div className="bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-20 pt-20">
         <div className="flex flex-col md:flex-row -mx-4">
@@ -140,7 +143,7 @@ const ProductDetail = (props) => {
           <Comment productComment={productComment} />
 
           {/* write comment */}
-          <div className="relative flex items-stretch w-3/5 mb-4">
+          <div className="relative flex items-stretch md:w-3/5 w-full mb-4">
             <input
               type="text"
               className="relative flex-auto min-w-0 block w-3/5 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
@@ -159,6 +162,8 @@ const ProductDetail = (props) => {
         </div>
       </div>
     </div>
+    <Footer />
+  </>
   )
 }
 

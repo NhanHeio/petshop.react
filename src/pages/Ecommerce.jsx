@@ -5,6 +5,8 @@ import Navbar from '../components/commerce/Navbar/Navbar';
 import Pagination from '../components/commerce/Pagination/Pagination';
 import Products from '../components/commerce/Products/Products';
 import SideBar from '../components/commerce/Sidebar/SideBar';
+import Header from '../components/header/Header';
+import Footer from '../components/footer/Footer';
 import { handleGetAllProducts, handleGetCart, handleRemoveCart } from '../services/productService';
 
 
@@ -75,13 +77,17 @@ const Ecommerce = (props) => {
   useEffect(() => {
     document.title = 'E-Commerce'
   }, [])
-  return <div className="h-full w-full bg-gray-50">
+  return <>
+    <Header />
+    <div className="h-full w-full bg-gray-50">
 
-    <Navbar cart={cart} handleRemoveCartItem={handleRemoveCartItem} getName={getName} />
-    <SideBar filterProducts={filterProducts} />
-    <Products products={products} />
-    <Pagination totalPages={totalPages} getPage={getPage} />
-  </div>;
+      <Navbar cart={cart} handleRemoveCartItem={handleRemoveCartItem} getName={getName} />
+      <SideBar filterProducts={filterProducts} />
+      <Products products={products} />
+      <Pagination totalPages={totalPages} getPage={getPage} />
+    </div>
+    <Footer />
+  </>;
 };
 
 const mapStateToProps = state => {

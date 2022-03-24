@@ -5,6 +5,8 @@ import { useSnackbar } from 'notistack';
 import InputDatePicker from '../components/calendar/InputDatePicker';
 import ServicePicker from '../components/calendar/ServicePicker';
 import TimePicker from '../components/calendar/TimePicker';
+import Header from '../components/header/Header';
+import Footer from '../components/footer/Footer';
 import { handleBookings, handleGetBookings } from '../services/bookingService';
 
 const Calendar = (props) => {
@@ -87,7 +89,9 @@ const Calendar = (props) => {
     
   },[load])
 
-  return <div className="h-full min-h-screen py-20 bg-gray-50">
+  return <>
+  <Header />
+  <div className="h-full min-h-screen py-20 bg-gray-50">
     <div className="w-5/6 md:w-3/5 mx-auto my-4 ">
       <span className="py-2 px-3 text-gray-700 text-2xl">About our services:</span>
       <div className="flex flex-col md:flex-row md:justify-around w-full mx-auto ">
@@ -111,7 +115,9 @@ const Calendar = (props) => {
     {value.date && <div id="button-booking" className="w-5/6 md:w-1/2">
       <button onClick={() => {handleSubmitBooking()}} className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 ml-20 rounded-full">Booking</button>
     </div>}
-  </div>;
+  </div>
+  <Footer />
+  </>
 };
 
 const mapStateToProps = state => {

@@ -14,7 +14,7 @@ const HomeCommit = () => {
             <div className="md:flex hidden justify-around items-center mx-auto my-6 h-full w-3/4">
                 <div className="w-1/3 mx-2">
                     <i className="fas fa-sticky-note text-gray-700 text-4xl"></i>
-                    <h2 className="my-4 text-3xl text-gray-600">Nội dung</h2>
+                    <h2 className="my-4 text-3xl text-gray-400">Nội dung</h2>
                     <span className="my-4 text-xl text-gray-500">Nội dung chất lượng, chính xác, có nguồn uy tín.</span>
                 </div>
                 <div className="w-1/3 mx-2">
