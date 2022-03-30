@@ -17,7 +17,7 @@ const SideBar = ({getDashboard}) => {
         getDashboard(id)
     }
     return (
-        <aside className="w-1/6 pt-24 py-0 min-h-screen shadow-md bg-white">
+        <aside className="w-1/6 pt-24 py-0 h-full min-h-screen shadow-md bg-white">
             <div>
                 <div className="px-3 py-4 overflow-y-auto rounded bg-white">
                     <ul className="space-y-2">

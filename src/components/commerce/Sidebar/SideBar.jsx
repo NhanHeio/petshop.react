@@ -2,12 +2,12 @@ import React, { useState, memo } from 'react';
 
 const SideBar = ({filterProducts}) => {
     const sideBarItems = [
-        { id: 1, name: 'Chó', icon: 'fas fa-dog' },
-        { id: 2, name: 'Mèo', icon: 'fas fa-cat' },
-        { id: 3, name: 'Cá', icon: 'fas fa-fish' },
-        { id: 4, name: 'Chim', icon: 'fas fa-dove' },
-        { id: 5, name: 'Bò Sát', icon: 'fas fa-spider' },
-        { id: 6, name: 'Động vật nhỏ', icon: 'fas fa-otter' },
+        { id: 4, name: 'Chó', icon: 'fas fa-dog' },
+        { id: 14, name: 'Mèo', icon: 'fas fa-cat' },
+        { id: 24, name: 'Cá', icon: 'fas fa-fish' },
+        { id: 34, name: 'Chim', icon: 'fas fa-dove' },
+        { id: 44, name: 'Bò Sát', icon: 'fas fa-spider' },
+        { id: 54, name: 'Động vật nhỏ', icon: 'fas fa-otter' },
     ]
     const [activeSidebar, setActiveSidebar] = useState(0)
     const handleClickSidebar = (id) => {

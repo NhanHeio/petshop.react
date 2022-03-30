@@ -22,9 +22,11 @@ const Calendar = (props) => {
   const [booking, setBooking] = useState([])
   const [load, setLoad] = useState(false)
   const userID = props.isLoggedIn ? props.userInfo.id : null
+  const userName = props.isLoggedIn ? props.userInfo.name : null
   const { enqueueSnackbar } = useSnackbar();
   let value = {
     userID,
+    userName,
     service,
     date,
     time,

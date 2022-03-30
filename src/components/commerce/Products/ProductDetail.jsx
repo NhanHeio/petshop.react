@@ -98,7 +98,7 @@ const ProductDetail = (props) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-20 pt-20">
         <div className="flex flex-col md:flex-row -mx-4">
           <div className="md:flex-1 px-4">
-            <img className="md:w-4/5 md:h-4/5" src={productDetail.img} alt={productDetail.name} />
+            <img className="md:w-4/5 md:h-4/5" src={process.env.REACT_APP_PRODUCT_IMG + productDetail.img} alt={productDetail.name} />
           </div>
           <div className="md:flex-1 px-4">
             <h2 className="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">{productDetail.name}</h2>

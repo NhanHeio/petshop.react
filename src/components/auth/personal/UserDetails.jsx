@@ -57,6 +57,9 @@ const UserDetails = ({ info, getInfo, updateInfo }) => {
             console.log(error)
         }
     }
+    const choseImg = () => {
+        document.getElementById("upload-avatar").click()
+    }
 
     useEffect(() => {
         setName(info.name)
@@ -76,9 +79,17 @@ const UserDetails = ({ info, getInfo, updateInfo }) => {
                         alt="Avatar"
                     />
                     <input
+                        style={{ display: 'none' }}
+                        id="upload-avatar"
                         type="file"
                         onChange={e => setImg(e.target.files[0])}
                     />
+                    <button
+                        className="w-fit block px-6 py-2.5 mt-2 bg-slate-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-800 hover:shadow-lg "
+                        onClick={() => { choseImg() }}
+                    >
+                        Chose image
+                    </button>
                     <button
                         className="w-fit px-6 py-2.5 mt-2 bg-sky-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-800 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                         onClick={() => handleUpload()}
@@ -117,7 +128,7 @@ const UserDetails = ({ info, getInfo, updateInfo }) => {
                         className="w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         placeholder="Address"
                         name="address"
-                        value={address}
+                        value={address ? address : ''}
                         onChange={(e) => { setAddress(e.target.value) }}
                     />
                     <button

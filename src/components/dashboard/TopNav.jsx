@@ -11,7 +11,8 @@ const style = {
     paddingTop: 0,
     paddingBottom: 0
 }
-const TopNav = () => {
+const TopNav = ({info}) => {
+    console.log(info)
     return (
         <div>
             <div style={style} className="flex flex-row justify-between px-20 border-b-2 shadow-sm bg-white">
