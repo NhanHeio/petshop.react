@@ -5,10 +5,11 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const usePageViews = () => {
+
   let location = useLocation()
   useEffect(() =>{
     if(!window.GA_INITIALIZED) {
-      ReactGA.initialize(TRACKING_ID)
+      ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_CODE)
       window.GA_INITIALIZED = true
     }
     ReactGA.set({ path: location.pathname})
