@@ -7,14 +7,11 @@ import { useLocation } from 'react-router-dom';
 const usePageViews = () => {
 
   let location = useLocation()
-  useEffect(() =>{
-    if(!window.GA_INITIALIZED) {
-      ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_CODE)
-      window.GA_INITIALIZED = true
-    }
-    ReactGA.set({ path: location.pathname})
+  useEffect(() => {
+    ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_CODE)
+    ReactGA.set({ path: location.pathname })
     ReactGA.pageview(window.location.pathname + window.location.search)
-  },[location]);
+  }, [location]);
 }
 
 function App() {
