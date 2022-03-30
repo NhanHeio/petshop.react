@@ -131,7 +131,7 @@ const Checkout = (props) => {
               (cart.cartItems.map((item) => (
                 <li key={item.id} className="flex flex-wrap w-2/5 my-3 mx-auto p-3 rounded-md border-2 border-slate-200">
                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                    <img src={item.img} alt={item.name} className="h-full w-full object-cover object-center"></img>
+                    <img src={process.env.REACT_APP_PRODUCT_IMG + item.img} alt={item.name} className="h-full w-full object-cover object-center"></img>
                   </div>
 
                   <div className="ml-4 flex flex-1 flex-col">

@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieChart = () => {
+const PieChart = ({pieChart}) => {
+  let arrayValues = Object.values(pieChart);
     const data = {
         labels: ['Chó', 'Mèo', 'Cá', 'Động vật nhỏ', 'Bò sát', 'Chim'],
         datasets: [
           {
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: arrayValues,
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',
@@ -36,4 +37,4 @@ const PieChart = () => {
   )
 }
 
-export default PieChart
+export default memo(PieChart);
