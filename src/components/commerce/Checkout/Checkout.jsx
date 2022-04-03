@@ -237,10 +237,13 @@ const Checkout = (props) => {
                       ],
                     });
                   }}
-                  onApprove={(data, actions) => {
-                    return actions.order.capture().then((details) => {
-                      document.getElementById("payment-button").click()
-                  });
+                  onApprove={ async (data, actions) => {
+                    const order = await actions.order.capture();
+                    console.log(order)
+                    document.getElementById("payment-button").click()
+                  }}
+                  onError={(err) => {
+                    console.log(err)
                   }}
                 />
               </PayPalScriptProvider>
