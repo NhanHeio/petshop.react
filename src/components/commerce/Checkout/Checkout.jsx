@@ -238,7 +238,9 @@ const Checkout = (props) => {
                     });
                   }}
                   onApprove={(data, actions) => {
-                    document.getElementById("payment-button").click()
+                    return actions.order.capture().then((details) => {
+                      document.getElementById("payment-button").click()
+                  });
                   }}
                 />
               </PayPalScriptProvider>
