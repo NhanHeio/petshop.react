@@ -1,31 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { handleGetCart, handlePlaceAnOrder } from '../../../services/productService'
+import { handleGetCart, handlePlaceAnOrderShipCod, handlePlaceAnOrderPayment } from '../../../services/productService'
 import { useSnackbar } from 'notistack';
 import Payment from './Payment';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { Box, MenuItem, FormControl, Select } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
 
 const Checkout = (props) => {
 
   const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [address, setAddress] = useState('')
+  const [amount, setAmount] = useState('')
   const [cart, setCart] = useState()
   const [payment, setPayment] = useState(1)
   const { enqueueSnackbar } = useSnackbar();
   let navigate = useNavigate()
   const checkUserLogin = () => {
-    if(!props.isLoggedIn){
+    if (!props.isLoggedIn) {
       return navigate("/signin")
     }
   }
 
   let userID = (props.isLoggedIn ? props.userInfo.id : 0)
-
   const handleChangePaymentMethod = (event) => {
     setPayment(event.target.value)
+    // if (event.target.value === 2) {
+    //   document.getElementById("payment").classList.remove("hidden")
+    //   document.getElementById("payment-button").classList.remove("hidden")
+    //   document.getElementById("order-button").classList.add("hidden")
+    // } else {
+    //   document.getElementById("payment").classList.add("hidden")
+    //   document.getElementById("payment-button").classList.add("hidden")
+    //   document.getElementById("order-button").classList.remove("hidden")
+    // }
   };
 
   const fetchShippingData = () => {
@@ -36,10 +45,10 @@ const Checkout = (props) => {
     }
   }
 
-  const handleOrder = async (name, phoneNumber, address) => {
+  const handleOrderCod = async (name, phoneNumber, address) => {
     if (props.isLoggedIn) {
       if (name !== '' || phoneNumber !== '' || address !== '') {
-        let response = await handlePlaceAnOrder(userID, name, phoneNumber, address);
+        let response = await handlePlaceAnOrderShipCod(userID, name, phoneNumber, address);
         if (response.errCode === 0) {
           enqueueSnackbar('Place an order successfully!', {
             variant: 'success',
@@ -64,7 +73,36 @@ const Checkout = (props) => {
         autoHideDuration: 3000
       })
     }
+  }
 
+  const handleOrderCard = async (name, phoneNumber, address) => {
+    if (props.isLoggedIn) {
+      if (name !== '' || phoneNumber !== '' || address !== '') {
+        let response = await handlePlaceAnOrderPayment(userID, name, phoneNumber, address);
+        if (response.errCode === 0) {
+          enqueueSnackbar('Place an order successfully!', {
+            variant: 'success',
+            autoHideDuration: 3000
+          })
+          return navigate("/commerce")
+        } else {
+          enqueueSnackbar('Place an order failed!', {
+            variant: 'error',
+            autoHideDuration: 3000
+          })
+        }
+      } else {
+        enqueueSnackbar('Missing parameters', {
+          variant: 'error',
+          autoHideDuration: 3000
+        })
+      }
+    } else {
+      enqueueSnackbar('Order failed. Please Login to order', {
+        variant: 'error',
+        autoHideDuration: 3000
+      })
+    }
   }
 
   useEffect(() => {
@@ -73,12 +111,11 @@ const Checkout = (props) => {
     handleGetCart(userID)
       .then(rs => {
         setCart(rs.cart)
+        setAmount((rs.cart.total_price/22670).toFixed(2))
       })
       .catch(err => console.log(err))
 
-  }, [userID])
-
-
+  }, [userID, payment])
 
   return (
     <div className="w-3/5 mx-auto mt-20 bg-slate-50">
@@ -172,15 +209,47 @@ const Checkout = (props) => {
               </FormControl>
             </Box>
           </div>
-          {/* <div className="md:w-12 w-full">
-            <Payment total_price={cart.total_price} />
-          </div> */}
+          <div id="payment" className="hidden md:w-1/2 w-full mx-auto">
+            {/* <Payment /> */}
+
+          </div>
+          {
+            (payment === 1) ?
+              <button
+                type="button"
+                id="order-button"
+                className=" w-fit px-6 py-2.5 bg-indigo-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                onClick={() => { handleOrderCod(name, phoneNumber, address) }}
+              >
+                Place an Order
+              </button> :
+              <PayPalScriptProvider options={{ "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID }}>
+                <PayPalButtons
+                  style={{ layout: "horizontal" }}
+                  createOrder={(data, actions) => {
+                    return actions.order.create({
+                      purchase_units: [
+                        {
+                          amount: {
+                            value: amount,
+                          },
+                        },
+                      ],
+                    });
+                  }}
+                  onApprove={(data, actions) => {
+                    document.getElementById("payment-button").click()
+                  }}
+                />
+              </PayPalScriptProvider>
+          }
           <button
             type="button"
-            className=" w-fit px-6 py-2.5 bg-indigo-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-            onClick={() => { handleOrder(name, phoneNumber, address) }}
+            id="payment-button"
+            className="hidden w-fit px-6 py-2.5 bg-indigo-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={() => { handleOrderCard(name, phoneNumber, address, amount) }}
           >
-            Place an Order
+            Order and Pay
           </button>
         </div>
       </div>

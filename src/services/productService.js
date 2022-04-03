@@ -30,8 +30,11 @@ const handleRemoveCart = (id) => {
 // const handlePlaceAnOrder = (params) => {
 //     return axios.post(`/api/checkout-order?${params}`)
 // }
-const handlePlaceAnOrder = (user_id,name,phoneNumber,address) => {
+const handlePlaceAnOrderShipCod = (user_id,name,phoneNumber,address) => {
     return axios.post(`/api/checkout-order?user_id=${user_id}`,{name,phoneNumber,address})
+}
+const handlePlaceAnOrderPayment = (user_id,name,phoneNumber,address) => {
+    return axios.post(`/api/checkout-and-pay-order?user_id=${user_id}`,{name,phoneNumber,address})
 }
 const handleGetOrderByUser = (userID) => {
     return axios.get(`/api/get-order/user?userID=${userID}`)
@@ -51,7 +54,8 @@ export {
     handleGetCart,
     handleRemoveCart,
     handleAddToCart,
-    handlePlaceAnOrder,
+    handlePlaceAnOrderShipCod,
+    handlePlaceAnOrderPayment,
     handleGetOrderByUser,
     handleGetOrderByOrderID,
     handleCancelOrder,
