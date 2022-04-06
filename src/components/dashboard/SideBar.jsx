@@ -5,7 +5,6 @@ const sideBarItems = [
     { id: 3, name: 'Bookings' },
     { id: 4, name: 'Products' },
     { id: 5, name: 'Users' },
-    { id: 6, name: 'Analytics' },
 ]
 
 const active = 'flex items-center p-2 text-base font-normal text-slate-50 bg-sky-600 rounded-lg hover:bg-sky-800 cursor-pointer'

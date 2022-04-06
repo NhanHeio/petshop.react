@@ -11,7 +11,7 @@ const Products = ({ products }) => {
                         <Link
                             to={`/commerce/product/${product.id}`}
                             key={product.id}
-                            className="md:w-1/6 w-5/12 md:p-2 m-5 p-2 border rounded"
+                            className="md:w-1/6 w-5/12 md:p-2 md:m-5 m-2 p-2 border rounded"
                         >
                             <Product product={product} />
                         </Link>

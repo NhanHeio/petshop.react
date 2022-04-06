@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../../assets/image/logo-home.png';
-import { Avatar, Badge } from '@mui/material';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import { Avatar } from '@mui/material';
+import { Link } from 'react-router-dom';
 const style = {
     position: 'fixed',
     top: 0,
@@ -11,21 +11,24 @@ const style = {
     paddingTop: 0,
     paddingBottom: 0
 }
-const TopNav = ({info}) => {
-    console.log(info)
+const TopNav = ({ info }) => {
+    // const [avatar, setAvatar] = useState('')
+    // setAvatar('process.env.REACT_APP_AVATAR')
     return (
         <div>
-            <div style={style} className="flex flex-row justify-between px-20 border-b-2 shadow-sm bg-white">
-                <img className="w-28 -m-4" src={logo} alt="Logo" />
-                <div className="flex flex-row my-auto">
-                    <Badge badgeContent={4} color="primary">
-                        <NotificationsIcon color="primary" fontSize="large" />
-                    </Badge>
-                    <div className="pl-6">
-                        <Avatar alt="avatar" src='' />
+            {
+                info &&
+                <div style={style} className="flex flex-row justify-between px-20 border-b-2 shadow-sm bg-white">
+                    <img className="w-28 -m-4" src={logo} alt="Logo" />
+                    <div className="flex flex-row my-auto">
+                        <div className="pl-6">
+                            <Link to={`/profile/${info.id}`}>
+                                <Avatar alt={info.name} src={process.env.REACT_APP_AVATAR + info.img} />
+                            </Link>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
     )
 }

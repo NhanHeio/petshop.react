@@ -27,9 +27,6 @@ const handleAddToCart = (params) => {
 const handleRemoveCart = (id) => {
     return axios.delete(`/api/delete-cart-product?id=${id}`)
 }
-// const handlePlaceAnOrder = (params) => {
-//     return axios.post(`/api/checkout-order?${params}`)
-// }
 const handlePlaceAnOrderShipCod = (user_id,name,phoneNumber,address) => {
     return axios.post(`/api/checkout-order?user_id=${user_id}`,{name,phoneNumber,address})
 }
