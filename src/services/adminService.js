@@ -30,6 +30,9 @@ const handleAdminGetProductSoldOut = (params) => {
 const handleFetchProductInfo = (params) => {
     return axios.get(`/api/admin/get-product-info?${params}`)
 }
+const handleDeleteProduct = (params) => {
+    return axios.delete(`/api/admin/delete-product?${params}`)
+}
 export {
     handleGetOverView,
     handleAdminGetOrder,
@@ -41,4 +44,5 @@ export {
     handleAdminGetAllProduct,
     handleAdminGetProductSoldOut,
     handleFetchProductInfo,
+    handleDeleteProduct,
 }

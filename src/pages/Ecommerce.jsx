@@ -10,6 +10,8 @@ import Footer from '../components/footer/Footer';
 import { handleGetAllProducts, handleGetCart, handleRemoveCart } from '../services/productService';
 import { useLocation } from 'react-router-dom';
 import ReactGA from "react-ga4";
+import CarouselComponent from '../components/carousel/CarouselComponent';
+
 
 const Ecommerce = (props) => {
   // ga4
@@ -83,14 +85,13 @@ const Ecommerce = (props) => {
     return setLoadCart(false)
   }, [filter, loadCart])
 
-  useEffect(() => {
-    document.title = 'E-Commerce'
-  }, [])
+  document.title = 'E-Commerce'
+
   return <>
     <Header />
-    <div className="h-full w-full bg-gray-50">
-
+    <div className="h-full w-full min-h-screen bg-gray-50">
       <Navbar cart={cart} handleRemoveCartItem={handleRemoveCartItem} getName={getName} />
+      <CarouselComponent /> 
       <SideBar filterProducts={filterProducts} />
       <Products products={products} />
       <Pagination totalPages={totalPages} getPage={getPage} />

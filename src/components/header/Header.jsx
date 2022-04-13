@@ -38,8 +38,8 @@ const headerNavItems = [
         section: "contact"
     }
 ]
-const classActive = "p-2 lg:px-4 md:mx-2 text-white rounded bg-indigo-600"
-const classInactive = "p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
+const classActive = "p-2 lg:px-4 md:mx-2 text-lg text-white rounded bg-indigo-600"
+const classInactive = "p-2 lg:px-4 md:mx-2 text-lg text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
 const Header = props => {
     const [activeIndex, setActiveIndex] = useState(' ')
     const [showHeader, setShowHeader] = useState(true)
@@ -92,15 +92,15 @@ const Header = props => {
                                 {
                                     !props.isLoggedIn &&
                                     <>
-                                        <Link to="/signin" onClick={() => handleClick("signin")} className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-transparent rounded hover:bg-indigo-100 hover:text-indigo-700 transition-colors duration-300">Login</Link>
-                                        <Link to="/signup" onClick={() => handleClick("signup")} className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-solid border-indigo-600 rounded hover:bg-indigo-600 hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1">Signup</Link>
+                                        <Link to="/signin" onClick={() => handleClick("signin")} className="p-2 lg:px-4 md:mx-2 text-lg text-indigo-600 text-center border border-transparent rounded hover:bg-indigo-100 hover:text-indigo-700 transition-colors duration-300">Login</Link>
+                                        <Link to="/signup" onClick={() => handleClick("signup")} className="p-2 lg:px-4 md:mx-2 text-lg text-indigo-600 text-center border border-solid border-indigo-600 rounded hover:bg-indigo-600 hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1">Signup</Link>
                                     </>
                                 }
                                 {
                                     props.isLoggedIn &&
                                     <>
-                                        {props.userInfo.name && <Link to={`/profile/${props.userInfo.id}`} className="p-2 lg:px-4 md:mx-2 text-gray-500 text-center border border-transparent rounded transition-colors duration-300">{props.userInfo.name}</Link>}
-                                        <button onClick={() => props.processLogout()} className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-transparent rounded hover:bg-gray-100 hover:text-red-600 transition-colors duration-300">Log out</button>
+                                        {props.userInfo.name && <Link to={`/profile/${props.userInfo.id}`} className="p-2 lg:px-4 md:mx-2 text-lg text-gray-500 text-center border border-transparent rounded transition-colors duration-300">{props.userInfo.name}</Link>}
+                                        <button onClick={() => props.processLogout()} className="p-2 lg:px-4 md:mx-2 text-lg text-indigo-600 text-center border border-transparent rounded hover:bg-gray-100 hover:text-red-600 transition-colors duration-300">Log out</button>
                                     </>
                                 }
                             </div>

@@ -5,7 +5,7 @@ import queryString from 'query-string';
 import axios from '../../../axios';
 import { useSnackbar } from 'notistack';
 import { connect } from 'react-redux'
-import { handleAdminGetAllProduct, handleAdminGetProductSoldOut, handleFetchProductInfo } from '../../../services/adminService'
+import { handleAdminGetAllProduct, handleAdminGetProductSoldOut, handleFetchProductInfo, handleDeleteProduct } from '../../../services/adminService'
 import Pagination from '../../commerce/Pagination/Pagination';
 
 const style = {
@@ -164,6 +164,29 @@ const DashboardProduct = (props) => {
         }
     }
 
+    //delete product
+    const handleClickDeletteProduct = async (id) => {
+        let paramsObject = {
+            userID,
+            productID: id
+        }
+        let params = queryString.stringify(paramsObject)
+        let response = await handleDeleteProduct(params)
+        if (response.errCode === 0) {
+            enqueueSnackbar(response.errMessage, {
+                variant: 'succes',
+                autoHideDuration: 3000
+            })
+            setOpen(false)
+            setLoad(false)
+        } else {
+            enqueueSnackbar(response.errMessage, {
+                variant: 'error',
+                autoHideDuration: 3000
+            })
+        }
+    }
+
     //
     useEffect(() => {
         if (view === 1) {
@@ -205,6 +228,7 @@ const DashboardProduct = (props) => {
                         <th className="h-8 border border-slate-300 w-1/3">Description</th>
                         <th className="h-8 border border-slate-300 w-1/4">Provider</th>
                         <th className="h-8 border border-slate-300 w-1/12">Quantity</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -222,6 +246,7 @@ const DashboardProduct = (props) => {
                                     <td className="h-8 border border-slate-300 overflow-hidden whitespace-nowrap text-ellipsis">{item.desc}</td>
                                     <td className="h-8 border border-slate-300">{item.provider}</td>
                                     <td className="h-8 border border-slate-300">{item.quantity}</td>
+
                                 </tr>
                             ))
                         )
@@ -384,10 +409,19 @@ const DashboardProduct = (props) => {
                                         })}
                                     />
                                 </div>
-                                <button
-                                    onClick={() => { handleClickUpdateProduct() }}
-                                    className="w-fit p-2.5 m-1 bg-sky-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-800 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                                >Save</button>
+                                <div className="flex flex-row">
+                                    <button
+                                        onClick={() => { handleClickUpdateProduct() }}
+                                        className="w-fit p-2.5 m-1 bg-sky-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-800 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                                    >Save</button>
+                                    {
+                                        (modalTitle === 'Product Details') ?
+                                            <button
+                                                onClick={() => { handleClickDeletteProduct(product.id) }}
+                                                className="w-fit p-2.5 m-1 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-800 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                            >Delete</button> : <></>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </Typography>
