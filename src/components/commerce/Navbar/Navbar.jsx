@@ -1,21 +1,59 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useRef, useEffect } from 'react';
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Cart from '../Cart/Cart';
 
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+const mic = new SpeechRecognition()
+mic.continuous = true
+mic.interimResults = true
+mic.lang = 'vi-VI'
+
 const Navbar = ({ cart, handleRemoveCartItem, getName }) => {
     const [hideCart, setHideCart] = useState(true)
-    const [hideSidebar, setHideSidebar] = useState(false)
-    const [searchContent, setSearchContent] = useState('');
+    const [searchContent, setSearchContent] = useState('')
+    const [isListening, setIsListening] = useState(false)
+    const typingTimeoutRef = useRef(null)
+
     const handleClickCart = () => {
         setHideCart(!hideCart)
     }
-    const handleSearchButton = () => {
-        console.log(searchContent)
-        getName(searchContent)
-        setSearchContent('')
+
+    const handleSearchTermChange = (e) => {
+        setSearchContent(e.target.value)
+        let searchValue = e.target.value
+        if (typingTimeoutRef.current) {
+            clearTimeout(typingTimeoutRef.current)
+        }
+        typingTimeoutRef.current = setTimeout(() => {
+            getName(searchValue)
+        }, 500)
     }
-    //const cartItems = cart.cartItems
+
+    // const handleMicrophone = () => {
+    //     setIsListening(!isListening)
+    // }
+
+    const handleListening = () => {
+        setIsListening(true)
+            mic.start()
+            mic.onresult = e => {
+                const transcript = Array.from(e.results)
+                    .map(result => result[0])
+                    .map(result => result.transcript)
+                    .join('')
+                setSearchContent(transcript)
+                mic.onerror = e => {
+                    console.log(e.error)
+                }
+                if (e.results[0].isFinal) {
+                    getName(transcript)
+                    mic.stop()
+                    setIsListening(false)
+                }
+            }
+    }
+
     return (
         <div className="fixed flex flex-row pt-20 w-full px-20 border-b-2 bg-white z-50">
             <div className="md:basis-1/4 basis-0">
@@ -29,13 +67,16 @@ const Navbar = ({ cart, handleRemoveCartItem, getName }) => {
                                 className="relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                 placeholder="Search"
                                 value={searchContent}
-                                onChange={e => setSearchContent(e.target.value)}>
+                                onChange={handleSearchTermChange}>
                             </input>
                             <button
-                                className="btn px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center"
+                                className="btn px-6 py-2.5 text-black font-medium text-xs leading-tight uppercase rounded shadow-md"
                                 type="button"
-                                onClick={() => { handleSearchButton() }}>
-                                <i className="fas fa-search"></i>
+                                onClick={() => handleListening()}>
+                                {!isListening ?
+                                    <i className="fas fa-microphone"></i> :
+                                    <i className="fas fa-microphone-slash"></i>
+                                }
                             </button>
                         </div>
                     </div>

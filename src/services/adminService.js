@@ -24,8 +24,14 @@ const handleAddNewAdmin = (userID,name, email, phoneNumber, password, password2)
 const handleAdminGetAllProduct = (params) => {
     return axios.get(`/api/admin/get-all-products?${params}`)
 }
+const handleAdminGetProductSoldOut = (params) => {
+    return axios.get(`/api/admin/get-products-sold-out?${params}`)
+}
 const handleFetchProductInfo = (params) => {
     return axios.get(`/api/admin/get-product-info?${params}`)
+}
+const handleDeleteProduct = (params) => {
+    return axios.delete(`/api/admin/delete-product?${params}`)
 }
 export {
     handleGetOverView,
@@ -36,5 +42,7 @@ export {
     handleGetUserByAdmin,
     handleAddNewAdmin,
     handleAdminGetAllProduct,
+    handleAdminGetProductSoldOut,
     handleFetchProductInfo,
+    handleDeleteProduct,
 }

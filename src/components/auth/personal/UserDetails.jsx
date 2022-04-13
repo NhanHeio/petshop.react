@@ -75,7 +75,7 @@ const UserDetails = ({ info, getInfo, updateInfo }) => {
                 <div className="w-1/3 text-center">
                     <img
                         src={avatar}
-                        className="rounded-full w-64 mb-4  mx-auto"
+                        className="rounded-full object-contain w-64 h-64 mb-4 mx-auto"
                         alt="Avatar"
                     />
                     <input

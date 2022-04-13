@@ -134,7 +134,7 @@ const DashboardOrder = (props) => {
                                     <td className="h-8 border border-slate-300">{item.address}</td>
                                     <td className="h-8 border border-slate-300">{item.total_price}</td>
                                     {
-                                        (item.status === 'Waiting for confirm') ?
+                                        (item.status === 'Waiting for confirm' || item.status === 'Cancel') ?
                                             (
                                                 <td className="h-8 border border-slate-300 text-red-600">{item.status}</td>
                                             ) :
