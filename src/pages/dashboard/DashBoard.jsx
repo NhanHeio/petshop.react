@@ -31,7 +31,7 @@ const DashBoard = (props) => {
   }, [props.isLoggedIn])
   return (
     <div className="bg-slate-100 h-full">
-      <TopNav info={props.userInfo} />
+      <TopNav />
       <div className="flex flex-row justify-between">
         <SideBar getDashboard={getDashboard} /> 
         {

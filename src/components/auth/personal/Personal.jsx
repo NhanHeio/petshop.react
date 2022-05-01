@@ -11,8 +11,17 @@ import BookingHistory from './BookingHistory';
 import OrderHistory from './OrderHistory';
 import Header from '../../header/Header'
 import Footer from '../../footer/Footer'
+import { useNavigate } from 'react-router-dom';
 
 const Personal = (props) => {
+  let navigate = useNavigate()
+  const checkUserLogin = () => {
+    if (!props.isLoggedIn) {
+      return navigate("/signin")
+    }
+    return
+  }
+
   const [active, setActive] = useState(1)
   const [info, setInfo] = useState({
     name: '',
@@ -60,8 +69,9 @@ const Personal = (props) => {
     }
   }
   useEffect(() => {
+    checkUserLogin()
     fetchUserInfo()
-  }, [load])
+  }, [load,props.isLoggedIn])
   return (<>
   <Header />
     <div className="bg-slate-50 py-40">

@@ -96,7 +96,7 @@ const OrderHistory = (props) => {
                                     <td className="h-8 border border-slate-300">{item.address}</td>
                                     <td className="h-8 border border-slate-300">{item.total_price}</td>
                                     {
-                                        (item.status === 'Waiting for confirm') ?
+                                        (item.status === 'Waiting for confirm' || item.status === 'Cancel') ?
                                             (
                                                 <td className="h-8 border border-slate-300 text-red-600">{item.status}</td>
                                             ) :
@@ -137,7 +137,7 @@ const OrderHistory = (props) => {
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Order Details
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }} component="span">
                         <div>
 
                             {orderItem && (

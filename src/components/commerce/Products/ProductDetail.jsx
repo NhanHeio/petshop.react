@@ -53,7 +53,10 @@ const ProductDetail = (props) => {
       }
       return response
     } else {
-      console.log("Please login")
+      enqueueSnackbar('Please Login', {
+        variant: 'error',
+        autoHideDuration: 3000
+      })
       return null;
     }
   }

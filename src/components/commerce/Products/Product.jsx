@@ -4,7 +4,7 @@ const Product = ({product}) => {
     const [isNew, setIsNew] = useState(false)
     const compareDate = () => {
         const newdate  = new Date(product.createdAt)
-        const createdAt = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000)
+        const createdAt = new Date(new Date().getTime() - 3 * 24 * 60 * 60 * 1000)
         setIsNew(createdAt <= newdate)
     }
     useEffect(() => {

@@ -110,7 +110,7 @@ const DashboardUser = (props) => {
                                 <th className="h-8 border border-slate-300 w-1/5">Phone Number</th>
                                 <th className="h-8 border border-slate-300 w-1/5">Email</th>
                                 <th className="h-8 border border-slate-300 w-1/3">Address</th>
-                                <th className="h-8 border border-slate-300 w-1/12">Control</th>
+                                {/* <th className="h-8 border border-slate-300 w-1/12">Control</th> */}
                             </tr>
                         </thead>
                         <tbody>
@@ -124,11 +124,11 @@ const DashboardUser = (props) => {
                                             <td className="h-8 border border-slate-300">{item.phone_number}</td>
                                             <td className="h-8 border border-slate-300">{item.email}</td>
                                             <td className="h-8 border border-slate-300">{item.address}</td>
-                                            <td className="h-8 border border-slate-300">
+                                            {/* <td className="h-8 border border-slate-300">
                                                 <button
                                                     className="w-fit p-2.5 m-1 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-800 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
                                                 >Delete</button>
-                                            </td>
+                                            </td> */}
                                         </tr>
                                     ))
                                 )

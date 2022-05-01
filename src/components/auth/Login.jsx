@@ -49,7 +49,7 @@ const Login = props => {
     const handleShowPassword = () =>{
         setShowPass(!showPass)
     }
-    return <div className="h-auto bg-gray-50 flex flex-col justify-center items-center">
+    return <div className="h-auto bg-gray-50 flex flex-col justify-center items-center pt-28">
         <div className="bg-white rounded shadow-md md:w-1/2 md:max-w-sm w-5/6 md:py-8 mt-20 flex items-center flex-col mb-3">
             <h1 className="mb-8 text-3xl text-center">Sign In</h1>
             <div className="mt-8 md:w-3/4 w-5/6 flex flex-col">
@@ -80,16 +80,16 @@ const Login = props => {
                     Log In
                 </button>
             </div>
-            <div className="flex justify-evenly space-x-2 w-64 mt-4">
+            {/* <div className="flex justify-evenly space-x-2 w-64 mt-4">
                 <span className="bg-gray-300 h-px flex-grow t-2 relative top-2"></span>
                 <span className="flex-none uppercase text-xs text-gray-400 font-semibold">or</span>
                 <span className="bg-gray-300 h-px flex-grow t-2 relative top-2"></span>
-            </div>
-            <button className="my-4 flex">
+            </div> */}
+            {/* <button className="my-4 flex">
                 <div className="bg-no-repeat mr-1"></div>
                 <span className="text-xs text-blue-900 font-semibold">Log in with Facebook</span>
-            </button>
-            <a href="fb.com/nhantrung.ho" className="text-xs text-blue-900 md:mt-4 pd-12 cursor-pointer md:-mb-4 mb-4">Forgot password?</a>
+            </button> */}
+            {/* <a href="fb.com/nhantrung.ho" className="text-xs text-blue-900 md:mt-4 pd-12 cursor-pointer md:-mb-4 mb-4">Forgot password?</a> */}
         </div>
         <div className="bg-white rounded shadow-md text-center md:w-1/2 md:max-w-sm w-5/6 py-4">
             <span className="text-sm">Don't have an account?</span>

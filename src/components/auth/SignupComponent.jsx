@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { path } from '../../constants/constant';
 import { handleSignup } from '../../services/userService';
 import { actions } from '../../store/actions';
@@ -14,6 +14,7 @@ const SignupComponent = props => {
     const [password2, setPassword2] = useState('')
     const [showPass, setShowPass] = useState('false')
     const [errorMessage, setErrorMessage] = useState('')
+    const navigate = useNavigate()
     const handleSubmit = async () => {
         setErrorMessage('')
         try {
@@ -25,6 +26,7 @@ const SignupComponent = props => {
             if (data && data.errCode === 0) {
                 console.log(data.message)
                 props.userRegisterSuccess(data.user)
+                navigate('/')
             }
         } catch (e) {
             console.log(e)
