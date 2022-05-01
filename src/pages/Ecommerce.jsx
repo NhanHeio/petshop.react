@@ -52,7 +52,7 @@ const Ecommerce = (props) => {
     setCart(response.cart)
     setLoadCart(true)
   }
-
+  window.history.pushState({id: Math.floor(Math.random() * 10)},'search',`/commerce?name=${filter.name ? filter.name : ''}`);
   const filterProducts = (id) => {
     setType_id(id)
     setFilter({
@@ -70,14 +70,12 @@ const Ecommerce = (props) => {
     })
   }
   const getName = (name) => {
-    //setName(name)
     setFilter({
       name: name,
       page: 1,
       type_id: 0
     })
   }
-
   useEffect(() => {
     fetchProducts()
     fetchCarts(userID)

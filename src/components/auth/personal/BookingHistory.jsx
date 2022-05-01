@@ -23,18 +23,18 @@ const BookingHistory = (props) => {
         }
         let params = queryString.stringify(paramsObject)
         let response = await handleCancelBooking(params)
-        if(response.errCode === 0){
+        if (response.errCode === 0) {
             enqueueSnackbar(response.errMessage, {
                 variant: 'success',
                 autoHideDuration: 3000
-              })
-              setService(response.listService)
-              setLoad(true)
-        }else{
+            })
+            setService(response.listService)
+            setLoad(true)
+        } else {
             enqueueSnackbar(response.errMessage, {
                 variant: 'error',
                 autoHideDuration: 3000
-              })
+            })
         }
     }
     useEffect(() => {
@@ -42,6 +42,9 @@ const BookingHistory = (props) => {
     }, [userID, load])
     return (
         <div className="w-1/2">
+            {   
+                console.log( )
+            }
             <h2 className="text-2xl text-slate-600 mb-3">Booking History</h2>
             <table className="w-full table-auto border-collapse border border-slate-400">
                 <thead>
@@ -63,10 +66,13 @@ const BookingHistory = (props) => {
                                     <td className="h-8 border border-slate-300">{item.date}</td>
                                     <td className="h-8 border border-slate-300">{item.time}</td>
                                     <td className="h-8 border border-slate-300">
-                                        <button
-                                            onClick={() =>{handleClickCancelBooking(item.id)}}
-                                            className="w-fit p-2.5 m-1 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-800 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-                                        >Cancel</button>
+                                        {
+                                            (new Date(item.date) > new Date()) ?
+                                            <button
+                                                onClick={() => { handleClickCancelBooking(item.id) }}
+                                                className="w-fit p-2.5 m-1 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-800 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                            >Cancel</button> : <></>
+                                        }
                                     </td>
                                 </tr>
                             ))

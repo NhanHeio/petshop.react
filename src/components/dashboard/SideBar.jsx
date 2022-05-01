@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react'
 const sideBarItems = [
-    { id: 1, name: 'Dashboard' },
+    { id: 1, name: 'Overview' },
     { id: 2, name: 'Orders' },
     { id: 3, name: 'Bookings' },
     { id: 4, name: 'Products' },

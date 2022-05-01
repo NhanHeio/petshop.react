@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import logo from '../../assets/image/logo-home.png';
 import { Avatar, Menu, MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { actions } from '../../store/actions';
 const style = {
     position: 'fixed',
     top: 0,
@@ -11,7 +13,8 @@ const style = {
     paddingTop: 0,
     paddingBottom: 0
 }
-const TopNav = ({ info }) => {
+const TopNav = (props) => {
+    const info = props.isLoggedIn ? props.userInfo : {}
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -76,7 +79,7 @@ const TopNav = ({ info }) => {
                                 <Link to={`/profile/${info.id}`}>
                                     <MenuItem onClick={handleClose}>Profile</MenuItem>
                                 </Link>
-                                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                                <MenuItem onClick={() => props.processLogout()}>Logout</MenuItem>
                             </Menu>
                         </div>
                     </div>
@@ -86,4 +89,20 @@ const TopNav = ({ info }) => {
     )
 }
 
-export default TopNav
+const mapStateToProps = state => {
+    return {
+        userInfo: state.user.userInfo,
+        isLoggedIn: state.user.isLoggedIn
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        processLogout: () => dispatch(actions.processLogout()),
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TopNav);

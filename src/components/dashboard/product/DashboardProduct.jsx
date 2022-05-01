@@ -308,6 +308,7 @@ const DashboardProduct = (props) => {
                                         label="Type"
                                         onChange={handleChangeType}
                                     >
+                                        <MenuItem value={undefined}></MenuItem>
                                         <MenuItem value={4}>Chó</MenuItem>
                                         <MenuItem value={14}>Mèo</MenuItem>
                                         <MenuItem value={24}>Cá</MenuItem>
@@ -388,7 +389,7 @@ const DashboardProduct = (props) => {
                                 <div div className="w-full h-fit border border-collapse border-slate-600">
                                     <img
                                         className="object-contain h-48 w-96 m-2"
-                                        src={process.env.REACT_APP_PRODUCT_IMG + product.img}
+                                        src={product.img ? process.env.REACT_APP_PRODUCT_IMG + product.img : ''}
                                         //src="https://file1.dangcongsan.vn/DATA/0/2018/10/68___gi%E1%BA%BFng_l%C3%A0ng_qu%E1%BA%A3ng_ph%C3%BA_c%E1%BA%A7u__%E1%BB%A9ng_h%C3%B2a___%E1%BA%A3nh_vi%E1%BA%BFt_m%E1%BA%A1nh-16_51_07_908.jpg"
                                         alt={product.name} />
                                     <button

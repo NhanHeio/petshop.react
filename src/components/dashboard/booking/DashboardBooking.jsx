@@ -37,9 +37,9 @@ const DashboardBooking = (props) => {
             <table className="w-full table-auto border-collapse border border-slate-400">
                 <thead>
                     <tr>
-                        <th className="h-8 border border-slate-300 w-1/12">No</th>
+                        <th className="h-8 border border-slate-300 w-1/12">Date</th>
                         <th className="h-8 border border-slate-300 w-1/3">Name</th>
-                        <th className="h-8 border border-slate-300 w-1/5">Date</th>
+                        <th className="h-8 border border-slate-300 w-1/5">Date Booking</th>
                         <th className="h-8 border border-slate-300 w-1/5">Time</th>
                         <th className="h-8 border border-slate-300 w-1/4">Service</th>
                     </tr>
@@ -47,9 +47,9 @@ const DashboardBooking = (props) => {
                 <tbody>
                     {
                         service && (
-                            service.map((item, index) => (
+                            service.map((item) => (
                                 <tr key={item.id}>
-                                    <td className="h-8 border border-slate-300">{index + 1}</td>
+                                    <td className="h-8 border border-slate-300">{item.createdAt.slice(0,10)}</td>
                                     <td className="h-8 border border-slate-300">{item.username}</td>
                                     <td className="h-8 border border-slate-300">{item.date}</td>
                                     <td className="h-8 border border-slate-300">{item.time}</td>

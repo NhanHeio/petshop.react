@@ -114,7 +114,7 @@ const DashboardOrder = (props) => {
             <table className="w-full table-auto border-collapse border border-slate-400">
                 <thead>
                     <tr>
-                        <th className="h-8 border border-slate-300 w-1/12">No</th>
+                        <th className="h-8 border border-slate-300 w-1/12">Date</th>
                         <th className="h-8 border border-slate-300 w-1/4">Name</th>
                         <th className="h-8 border border-slate-300 w-1/12">Phone Number</th>
                         <th className="h-8 border border-slate-300 w-2/5">Address</th>
@@ -126,9 +126,9 @@ const DashboardOrder = (props) => {
                 <tbody>
                     {
                         order && (
-                            order.map((item, index) => (
+                            order.map((item) => (
                                 <tr key={item.id}>
-                                    <td className="h-8 border border-slate-300">{index + 1}</td>
+                                    <td className="h-8 border border-slate-300">{item.createdAt.slice(0,10)}</td>
                                     <td className="h-8 border border-slate-300">{item.username}</td>
                                     <td className="h-8 border border-slate-300">{item.phone_number}</td>
                                     <td className="h-8 border border-slate-300">{item.address}</td>
