@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Modal, Typography } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Modal, Select, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import queryString from 'query-string';
 import { useSnackbar } from 'notistack';
@@ -20,11 +20,25 @@ const style = {
 
 const OrderHistory = (props) => {
     const { enqueueSnackbar } = useSnackbar();
+    const [view, setView] = useState(1)
     const [order, setOrder] = useState([])
     const [orderItem, setOrderItem] = useState([])
     const [load, setLoad] = useState(false)
     const [open, setOpen] = useState(false)
     const userID = props.isLoggedIn ? props.userInfo.id : 0
+
+    const handleChangeView = (event) => {
+        setView(event.target.value)
+        if(event.target.value === 2){
+            for(let i = 0; i < order.length; i++) {
+                if(order[i].status === 'Waiting for confirm' || order[i].status === 'Cancel'){
+                    delete order[i]
+                }
+            }
+        }else{
+            fetchOrderHistory(userID)
+        }
+    }
 
     const fetchOrderHistory = async (userID) => {
         let response = await handleGetOrderByUser(userID)
@@ -77,6 +91,21 @@ const OrderHistory = (props) => {
     return (
         <div className="w-1/2">
             <h2 className="text-2xl text-slate-600 mb-3">Order History</h2>
+            <div className="w-2/12">
+                <FormControl fullWidth>
+                    <InputLabel id="select-view-label">View</InputLabel>
+                    <Select
+                        labelId="select-view-label"
+                        id="select-view"
+                        value={view}
+                        label="View"
+                        onChange={handleChangeView}
+                    >
+                        <MenuItem value={1}>All</MenuItem>
+                        <MenuItem value={2}>Shipping</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
             <table className="w-full table-auto border-collapse border border-slate-400">
                 <thead>
                     <tr>
@@ -144,7 +173,7 @@ const OrderHistory = (props) => {
                                 orderItem.map((item) => (
                                     <div key={item.id} className="flex flex-wrap w-2/5 my-3 mx-auto p-3 rounded-md border-2 border-slate-200">
                                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                            <img src={item.img} alt={item.name} className="h-full w-full object-cover object-center"></img>
+                                            <img src={process.env.REACT_APP_PRODUCT_IMG + item.img} alt={item.name} className="h-full w-full object-cover object-center"></img>
                                         </div>
 
                                         <div className="ml-4 flex flex-1 flex-col">

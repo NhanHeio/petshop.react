@@ -47,7 +47,7 @@ const Checkout = (props) => {
 
   const handleOrderCod = async (name, phoneNumber, address) => {
     if (props.isLoggedIn) {
-      if (name !== '' || phoneNumber !== '' || address !== '') {
+      if (!name && !phoneNumber && !address) {
         let response = await handlePlaceAnOrderShipCod(userID, name, phoneNumber, address);
         if (response.errCode === 0) {
           enqueueSnackbar('Place an order successfully!', {
@@ -77,7 +77,8 @@ const Checkout = (props) => {
 
   const handleOrderCard = async (name, phoneNumber, address) => {
     if (props.isLoggedIn) {
-      if (name !== '' || phoneNumber !== '' || address !== '') {
+      if (!name && !phoneNumber && !address) {
+        console.log("test")
         let response = await handlePlaceAnOrderPayment(userID, name, phoneNumber, address);
         if (response.errCode === 0) {
           enqueueSnackbar('Place an order successfully!', {
@@ -108,12 +109,29 @@ const Checkout = (props) => {
   useEffect(() => {
     checkUserLogin()
     fetchShippingData()
+
     handleGetCart(userID)
       .then(rs => {
         setCart(rs.cart)
-        setAmount((rs.cart.total_price/22670).toFixed(2))
+        
+        //convert vnd to usd
+        let myHeaders = new Headers();
+        myHeaders.append("apikey", "T3RcdW8boYYc5nh8uukcxBCcBmrvBUGL");
+
+        let requestOptions = {
+          method: 'GET',
+          redirect: 'follow',
+          headers: myHeaders
+        };
+
+        fetch(`https://api.apilayer.com/fixer/convert?to=USD&from=VND&amount=${rs.cart.total_price}`, requestOptions)
+          .then(response => response.json())
+          .then(result => setAmount(result.result))
+          .catch(error => console.log('error', error));
+
       })
       .catch(err => console.log(err))
+
 
   }, [userID, payment])
 
@@ -191,7 +209,13 @@ const Checkout = (props) => {
           </div>
           {cart &&
             <div>
-              <span className="text-2xl text-slate-500">Total Price: <span className="text-2xl text-pink-500">{cart.total_price}</span></span>
+              {
+                (payment === 1) ?
+                  <span className="text-2xl text-slate-500">Total Price: <span className="text-2xl text-pink-500">{cart.total_price}VND</span></span>
+                  : <>
+                    <span className="text-2xl text-slate-500">Total Price: <span className="text-2xl text-pink-500">{amount}$</span></span>
+                  </>
+              }
             </div>
           }
           <div className="flex flex-row m-2 p-2">
@@ -237,12 +261,13 @@ const Checkout = (props) => {
                       ],
                     });
                   }}
-                  onApprove={ async (data, actions) => {
+                  onApprove={async (data, actions) => {
                     const order = await actions.order.capture();
                     console.log(order)
                     document.getElementById("payment-button").click()
                   }}
                   onError={(err) => {
+
                     console.log(err)
                   }}
                 />
