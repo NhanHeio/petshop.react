@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 import { useSnackbar } from 'notistack';
 import { handleCancelBooking, handleGetBookingByUser } from '../../../services/bookingService';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 const BookingHistory = (props) => {
     const { enqueueSnackbar } = useSnackbar();
+    const [view, setView] = useState(1)
     const [load, setLoad] = useState(false)
     const [service, setService] = useState([])
     const userID = props.isLoggedIn ? props.userInfo.id : 0
@@ -16,6 +18,19 @@ const BookingHistory = (props) => {
         }
         setLoad(true)
     }
+    const handleChangeView = (event) => {
+        setView(event.target.value)
+        if(event.target.value === 2){
+            for(let i = 0; i < service.length; i++) {
+                if(new Date(service[i].date) > new Date()){
+                    delete service[i]
+                }
+            }
+        }else{
+            fetchBookingHistory(userID)
+        }
+    }
+
     const handleClickCancelBooking = async (id) => {
         let paramsObject = {
             userID,
@@ -40,12 +55,26 @@ const BookingHistory = (props) => {
     useEffect(() => {
         fetchBookingHistory(userID)
     }, [userID, load])
+
     return (
         <div className="w-1/2">
-            {   
-                console.log( )
-            }
+
             <h2 className="text-2xl text-slate-600 mb-3">Booking History</h2>
+            <div className="w-2/12">
+                <FormControl fullWidth>
+                    <InputLabel id="select-view-label">View</InputLabel>
+                    <Select
+                        labelId="select-view-label"
+                        id="select-view"
+                        value={view}
+                        label="View"
+                        onChange={handleChangeView}
+                    >
+                        <MenuItem value={1}>All</MenuItem>
+                        <MenuItem value={2}>Undue</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
             <table className="w-full table-auto border-collapse border border-slate-400">
                 <thead>
                     <tr>
@@ -68,10 +97,10 @@ const BookingHistory = (props) => {
                                     <td className="h-8 border border-slate-300">
                                         {
                                             (new Date(item.date) > new Date()) ?
-                                            <button
-                                                onClick={() => { handleClickCancelBooking(item.id) }}
-                                                className="w-fit p-2.5 m-1 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-800 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-                                            >Cancel</button> : <></>
+                                                <button
+                                                    onClick={() => { handleClickCancelBooking(item.id) }}
+                                                    className="w-fit p-2.5 m-1 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-800 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                >Cancel</button> : <></>
                                         }
                                     </td>
                                 </tr>

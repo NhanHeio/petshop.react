@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import queryString from 'query-string';
 import { useSnackbar } from 'notistack';
-import { Modal, Typography } from '@mui/material'
+import { FormControl, InputLabel, MenuItem, Modal, Select, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { handleGetOrderByOrderID } from '../../../services/productService'
 import { handleAdminCancelOrder, handleAdminGetOrder, handleConfirmOrder } from '../../../services/adminService';
@@ -22,6 +22,7 @@ const style = {
 
 const DashboardOrder = (props) => {
     const { enqueueSnackbar } = useSnackbar();
+    const [view, setView] = useState(1)
     const [order, setOrder] = useState([])
     const [orderItem, setOrderItem] = useState([])
     const [load, setLoad] = useState(false)
@@ -29,9 +30,19 @@ const DashboardOrder = (props) => {
     const userID = props.isLoggedIn ? props.userInfo.id : 0
     const [filter, setFilter] = useState({
         userID,
-        page: 1
+        page: 1,
+        view: 1
     })
-    const [totalPages, setTotalPages] = useState(0)
+
+    const handleChangeView = (event) => {
+        setView(event.target.value)
+        setFilter({
+            ...filter,
+            view: event.target.value
+        })
+    }
+
+    const [totalPages, setTotalPages] = useState(1)
     const getPage = (page) => {
         setFilter({
           ...filter,
@@ -107,10 +118,26 @@ const DashboardOrder = (props) => {
 
     useEffect(() => {
         fetchOrder()
-    }, [filter, load])
+    }, [filter, load, view])
+    
     return (
         <div className="pt-32 w-5/6 h-full px-20">
             <h2 className="text-2xl text-slate-600 mb-3">List of Orders</h2>
+            <div className="w-1/12">
+                <FormControl fullWidth>
+                    <InputLabel id="select-view-label">View</InputLabel>
+                    <Select
+                        labelId="select-view-label"
+                        id="select-view"
+                        value={view}
+                        label="View"
+                        onChange={handleChangeView}
+                    >
+                        <MenuItem value={1}>All</MenuItem>
+                        <MenuItem value={2}>Waiting</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
             <table className="w-full table-auto border-collapse border border-slate-400">
                 <thead>
                     <tr>
@@ -188,7 +215,7 @@ const DashboardOrder = (props) => {
                                 orderItem.map((item) => (
                                     <div key={item.id} className="flex flex-wrap w-2/5 my-3 mx-auto p-3 rounded-md border-2 border-slate-200">
                                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                            <img src={item.img} alt={item.name} className="h-full w-full object-cover object-center"></img>
+                                            <img src={process.env.REACT_APP_PRODUCT_IMG + item.img} alt={item.name} className="h-full w-full object-cover object-center"></img>
                                         </div>
 
                                         <div className="ml-4 flex flex-1 flex-col">
