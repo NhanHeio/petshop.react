@@ -1,0 +1,33 @@
+name: Automerge
+
+on:
+  push:
+    branches:
+      - "main"
+  workflow_dispatch:
+  schedule:
+    # You can setup schedule here
+    - cron: '15 04 * * *'
+
+env:
+  # replace "github_username" with your GitHub username
+  # replace "github.com/username/repo.git" with your GitHub repo path
+  # do NOT replace ${{secrets.GITHUB_TOKEN}}, GitHub will take care of it
+  MY_REPO: https://github.com/NhanHeio/petshop.react.git
+
+  # replace "long-lived_branch_name" with your branch name
+  MY_BRANCH: nhan
+
+  # replace "master" with your master branch name
+  MASTER_BRANCH: main
+
+
+jobs:
+  merge-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: emiliopedrollo/auto-merge@v1.2.0
+        with:
+          github_token: ${{ github.token }}
+          target_branch: 'nhan'
