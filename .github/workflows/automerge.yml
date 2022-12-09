@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     # You can setup schedule here
-    - cron: '20 10 * * *'
+    - cron: '10 03 * * *'
 
 env:
   # replace "github_username" with your GitHub username
@@ -14,7 +14,6 @@ env:
 
   # replace "long-lived_branch_name" with your branch name
   MY_BRANCH: nhan
-
 
   # replace "master" with your master branch name
   MASTER_BRANCH: main
@@ -26,5 +25,7 @@ jobs:
     steps:
     - name: Merge with master
       run: |
-        git pull origin ${{env.MY_BRANCH}}
+        git pull
+        git checkout ${{env.MY_BRANCH}}
+        git merge ${{env.MASTER_BRANCH}}
         git push
