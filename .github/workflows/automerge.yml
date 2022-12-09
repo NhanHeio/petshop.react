@@ -3,7 +3,7 @@ name: Automerge
 on:
   push:
     branches:
-      - ${{env.MY_BRANCH}}
+      - "nhan"
   workflow_dispatch:
   schedule:
     # You can setup schedule here
