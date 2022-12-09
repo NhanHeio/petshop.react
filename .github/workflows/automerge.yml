@@ -1,5 +1,14 @@
 name: Automerge
 
+on:
+  push:
+    branches:
+      - ${{env.MY_BRANCH}}
+  workflow_dispatch:
+  schedule:
+    # You can setup schedule here
+    - cron: '30 03 * * *'
+
 env:
   # replace "github_username" with your GitHub username
   # replace "github.com/username/repo.git" with your GitHub repo path
@@ -12,14 +21,6 @@ env:
   # replace "master" with your master branch name
   MASTER_BRANCH: main
 
-on:
-  push:
-    branches:
-      - ${{env.MY_BRANCH}}
-  workflow_dispatch:
-  schedule:
-    # You can setup schedule here
-    - cron: '30 03 * * *'
 
 jobs:
   merge-branch:
