@@ -1,11 +1,5 @@
 name: Automerge
 
-on:
-  workflow_dispatch:
-  schedule:
-    # You can setup schedule here
-    - cron: '10 03 * * *'
-
 env:
   # replace "github_username" with your GitHub username
   # replace "github.com/username/repo.git" with your GitHub repo path
@@ -18,14 +12,21 @@ env:
   # replace "master" with your master branch name
   MASTER_BRANCH: main
 
-jobs:
-  merge:
-    runs-on: ubuntu-latest
+on:
+  push:
+    branches:
+      - ${{env.MY_BRANCH}}
+  workflow_dispatch:
+  schedule:
+    # You can setup schedule here
+    - cron: '30 03 * * *'
 
+jobs:
+  merge-branch:
+    runs-on: ubuntu-latest
     steps:
-    - name: Merge with master
-      run: |
-        git pull
-        git checkout ${{env.MY_BRANCH}}
-        git merge ${{env.MASTER_BRANCH}}
-        git push
+      - uses: actions/checkout@v2
+      - uses: emiliopedrollo/auto-merge@v1.2.0
+        with:
+          github_token: ${{ github.token }}
+          target_branch: ${{env.MASTER_BRANCH}}
