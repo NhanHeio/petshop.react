@@ -3,11 +3,11 @@ name: Automerge
 on:
   push:
     branches:
-      - "nhan"
+      - "main"
   workflow_dispatch:
   schedule:
     # You can setup schedule here
-    - cron: '10 04 * * *'
+    - cron: '15 04 * * *'
 
 env:
   # replace "github_username" with your GitHub username
@@ -26,8 +26,8 @@ jobs:
   merge-branch:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@nhan
-      - uses: devmasx/merge-branch@nhan
+      - uses: actions/checkout@v2
+      - uses: emiliopedrollo/auto-merge@v1.2.0
         with:
           github_token: ${{ github.token }}
-          target_branch: ${{env.MASTER_BRANCH}}
+          target_branch: 'nhan'
